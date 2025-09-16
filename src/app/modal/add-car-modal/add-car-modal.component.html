@@ -1,0 +1,75 @@
+<div class="add-sidebar">
+  <div class="add-content">
+    <button (click)="onClose()" class="sidebar-close" aria-label="Cerrar Agregar Auto">&times;</button>
+    <form [formGroup]="carForm" class="car-form" novalidate>
+      <div class="row">
+        <div class="field">
+          <label>Marca</label>
+          <input type="text" formControlName="make" placeholder="Toyota, Ford, etc." />
+        </div>
+        <div class="field">
+          <label>Modelo</label>
+          <input type="text" formControlName="model" placeholder="Corolla, Focus, etc." />
+        </div>
+        <div class="field">
+          <label>Combustible</label>
+          <select formControlName="fuel">
+            <option value="">Selecciona tipo</option>
+            <option value="Gasolina">Gasolina</option>
+            <option value="Gas">Gas</option>
+            <option value="Hibrido">Híbrido</option>
+            <option value="Electrico">Eléctrico</option>
+            <option value="Diesel">Diésel</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Transmisión</label>
+          <select formControlName="transmission">
+            <option value="">Selecciona tipo</option>
+            <option value="Manual">Manual</option>
+            <option value="Automatica">Automática</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Año</label>
+          <input type="number" formControlName="year" />
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="field">
+          <label>Precio ($)</label>
+          <input type="number" formControlName="price" />
+        </div>
+        <div class="field">
+          <label>Kilometraje</label>
+          <input type="number" formControlName="kilometers" />
+        </div>
+        <div class="field">
+          <label>Color</label>
+          <input type="text" formControlName="color" />
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Descripción</label>
+        <textarea formControlName="description"></textarea>
+      </div>
+
+      <div class="field images-upload">
+        <label>Imágenes</label>
+        <div class="upload-drop">
+          <button type="button" class="btn-upload">📤 Subir Imágenes</button>
+          <div class="upload-hint">Selecciona multiples imagenes del auto</div>
+        </div>
+      </div>
+
+      <div class="actions">
+        <button (click)="addCar()" [disabled]="!carForm.valid" class="btn-save">
+          Guardar Auto
+        </button>
+        <button (click)="onClose()" class="btn-cancel" type="button">Cancelar</button>
+      </div>
+    </form>
+  </div>
+</div>

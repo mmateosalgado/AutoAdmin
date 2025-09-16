@@ -1,0 +1,162 @@
+/* overlay */
+.modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(11, 14, 20, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  z-index: 1200;
+}
+
+/* modal content */
+.modal-content {
+  position: relative;
+  width: 100%;
+  max-width: 760px; /* ancho grande como en diseño */
+  max-height: 90vh;
+  overflow: auto;
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 22px;
+  box-shadow: 0 12px 30px rgba(2,6,23,0.12);
+  border: 1px solid rgba(15,23,42,0.06);
+  box-sizing: border-box;
+  font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+}
+
+/* close button */
+.modal-close {
+  position: absolute;
+  right: 14px;
+  top: 12px;
+  background: transparent;
+  border: none;
+  font-size: 20px;
+  line-height: 1;
+  cursor: pointer;
+  color: #374151;
+}
+
+/* title */
+.modal-content h2 {
+  margin: 0 0 6px;
+  font-size: 18px;
+  color: #0f172a;
+  font-weight: 800;
+}
+.modal-sub {
+  margin: 0 0 16px;
+  color: #6b7280;
+  font-size: 13px;
+}
+
+/* form */
+.car-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* grid rows: 3 columnas en desktop */
+.row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+
+/* small spacer for alignment */
+.spacer { display:block; }
+
+/* field styling */
+.field label {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 13px;
+  color: #374151;
+  font-weight: 600;
+}
+.field input,
+.field select,
+.field textarea {
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid #e6e9ee;
+  background: #fff;
+  font-size: 14px;
+  box-sizing: border-box;
+  outline: none;
+}
+.field input:focus,
+.field select:focus,
+.field textarea:focus {
+  border-color: #93c5fd;
+  box-shadow: 0 0 0 6px rgba(37,99,235,0.06);
+}
+
+/* textarea */
+.field textarea {
+  min-height: 68px;
+  resize: vertical;
+}
+
+/* upload area */
+.images-upload .upload-drop {
+  border: 2px dashed #d1d5db;
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+  margin-top: 6px;
+  background: transparent;
+}
+.btn-upload {
+  display: inline-block;
+  padding: 8px 14px;
+  border-radius: 8px;
+  border: 1px solid #e6e9ee;
+  background: white;
+  cursor: pointer;
+  font-weight: 600;
+}
+.upload-hint {
+  margin-top: 8px;
+  color: #9ca3af;
+  font-size: 13px;
+}
+
+/* actions */
+.actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 4px;
+  align-items: center;
+  justify-content: flex-start;
+}
+.btn-save {
+  background: linear-gradient(180deg,#2b6ef6 0%,#2563eb 100%);
+  color: white;
+  border: none;
+  padding: 12px 16px;
+  border-radius: 10px;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 8px 18px rgba(37,99,235,0.12);
+}
+.btn-cancel {
+  background: white;
+  border: 1px solid #e6e9ee;
+  padding: 10px 14px;
+  border-radius: 10px;
+  cursor: pointer;
+  color: #374151;
+}
+
+/* responsive: pasar a una columna en pantallas pequeñas */
+@media (max-width: 720px) {
+  .modal-content { padding: 18px; max-width: 96%; max-height: 96vh; }
+  .row { grid-template-columns: 1fr; }
+  .actions { flex-direction: column; align-items: stretch; }
+  .btn-save, .btn-cancel { width: 100%; }
+}

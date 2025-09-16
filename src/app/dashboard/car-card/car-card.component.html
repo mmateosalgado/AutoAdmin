@@ -1,0 +1,47 @@
+<article class="car-card" role="article" aria-label="Tarjeta de auto">
+  <div class="image-wrap">
+    <img [src]="car.image.toString()" alt="Chevrolet Corsa"/>
+    <div class="badges">
+      @for (pub of car.publishStatus; track pub.platform) {
+        <span class="badge {{ pub.platform.toLowerCase() }}">
+          {{ pub.platform }}
+        </span>
+      }
+    </div>
+  </div>
+
+  <div class="card-body">
+    <div class="card-head">
+      <h4 class="car-title">{{car.make}} {{car.model}}</h4>
+      <div class="price">$ {{car.price}}</div>
+    </div>
+
+    <div class="meta">
+      <div class="meta-left">{{car.year}} · {{car.kilometers}} km</div>
+    </div>
+
+    <div class="chips">
+      <span class="chip">{{car.fuel}}</span>
+      <span class="chip">{{car.transmission}}</span>
+      <span class="chip">{{car.transmission}}</span>
+    </div>
+
+    <p class="desc">{{car.description}}</p>
+
+    <div class="actions">
+      <button (click)="EditCar()" class="btn-edit">✎ Editar</button>
+      <button (click)="DeleteCar()" class="btn-delete" title="Eliminar">🗑️</button>
+    </div>
+
+    <div class="publish-row">
+      @for (pub of car.publishStatus; track pub.platform) {
+        <button
+          class="btn-pub"
+          [class.disabled]="pub.status === 'disabled'"
+        >
+          En {{ pub.platform }}
+        </button>
+      }
+    </div>
+  </div>
+</article>

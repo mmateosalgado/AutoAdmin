@@ -1,0 +1,6 @@
+<section class="car-list">
+  <!-- repite app-car-card según datos -->
+  @for (car of cars; track car.patent) {
+    <div class="card-wrap"><app-car-card  (close)="close" (editCar)="EditCar($event)" [car]="car"></app-car-card></div>
+  }
+</section>

@@ -1,0 +1,43 @@
+.stats-cards {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  align-items: stretch;
+  margin-top: 14px;
+}
+
+/* tarjeta */
+.stat-card {
+  background: #ffffff;
+  border-radius: 10px;
+  padding: 18px;
+  border: 1px solid rgba(15,23,42,0.06);
+  box-shadow: 0 6px 12px rgba(2,6,23,0.04);
+}
+
+.stat-label {
+  font-size: 13px;
+  color: #6b7280;
+  margin-bottom: 6px;
+  font-weight: 600;
+}
+
+.stat-value {
+  font-size: 34px;
+  font-weight: 800;
+  color: #0f172a;
+  line-height: 1;
+}
+
+/* colores por tipo */
+.stat-value.colored.blue { color: #1e40af; }
+.stat-value.colored.orange { color: #b45309; }
+.stat-value.colored.green { color: #059669; }
+
+/* responsive: stack */
+@media (max-width: 960px) {
+  .stats-cards { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 480px) {
+  .stats-cards { grid-template-columns: 1fr; }
+}

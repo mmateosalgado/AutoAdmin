@@ -1,0 +1,53 @@
+[
+    {
+        "patent": 1,
+        "make": "Chevrolet",
+        "model": "Corsa",
+        "year": 2015,
+        "price": 3750,
+        "kilometers": 140000,
+        "fuel": "gasoline",
+        "transmission": "manual",
+        "color": "gris",
+        "description": "Excelente condicion",
+        "image": "corsa.jpg",
+        "publishStatus": [
+            { "platform": "FB", "status": "disabled" },
+            { "platform": "ML", "status": "disabled" }
+        ]
+    },
+    {
+        "patent": 2,
+        "make": "Chevrolet",
+        "model": "Corsa",
+        "year": 2015,
+        "price": 3750,
+        "kilometers": 140000,
+        "fuel": "gasoline",
+        "transmission": "manual",
+        "color": "gris",
+        "description": "Excelente condicion",
+        "image": "corsa.jpg",
+        "publishStatus": [
+            { "platform": "FB", "status": "disabled" },
+            { "platform": "ML", "status": "disabled" }
+        ]
+    },
+    {
+        "patent": 3,
+        "make": "Chevrolet",
+        "model": "Corsa",
+        "year": 2015,
+        "price": 3750,
+        "kilometers": 140000,
+        "fuel": "gasoline",
+        "transmission": "manual",
+        "color": "gris",
+        "description": "Excelente condicion",
+        "image": "corsa.jpg",
+        "publishStatus": [
+            { "platform": "FB", "status": "disabled" },
+            { "platform": "ML", "status": "disabled" }
+        ]
+    }
+]
