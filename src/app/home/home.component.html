@@ -18,19 +18,15 @@
 
 <!-- montados (ocultos por defecto) -->
 @if (showAddCarModal) {
-  <div class="modal add">
     <app-add-car-modal  
       (close)="closeAddCarModal()">
     </app-add-car-modal>
-  </div>
 }
 @if (showEditCarModal) {
-  <div class="modal edit">
     <app-edit-car-modal
     (close)="closeEditCarModal()"
     [car]="carToEdit">
     </app-edit-car-modal>
-  </div>
 }
 
 <div class="logout-container">

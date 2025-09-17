@@ -8,6 +8,22 @@
   justify-content: center;
   padding: 20px;
   z-index: 1200;
+  animation: fadeInUp 0.35s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.95); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+/* animación de salida: cuando .modal recibe la clase closing, animar el contenido */
+.modal.closing .modal-content {
+  animation: fadeOutDown 0.3s ease-in forwards;
+}
+
+@keyframes fadeOutDown {
+  from { opacity: 1; transform: translateY(0); }
+  to   { opacity: 0; transform: translateY(20px); }
 }
 
 /* modal content */
@@ -24,6 +40,7 @@
   border: 1px solid rgba(15,23,42,0.06);
   box-sizing: border-box;
   font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  animation: fadeIn 0.35s ease-out;
 }
 
 /* close button */

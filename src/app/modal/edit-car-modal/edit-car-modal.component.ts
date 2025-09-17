@@ -2,18 +2,29 @@ import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from 
 
 @Component({
   selector: 'app-edit-car-modal',
-  imports: [],
   templateUrl: './edit-car-modal.component.html',
-  styleUrl: './edit-car-modal.component.css',
+  styleUrls: ['./edit-car-modal.component.css'], // <-- corregido
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class EditCarModalComponent {
   @Input() car: Car | null = null;
   @Output() close = new EventEmitter<void>();
+  isClosing = false;
 
   constructor() {}
 
+  // no emitimos acá directo, sólo iniciamos la animación
   onClose() {
-    this.close.emit();
+    this.startClose();
+  }
+
+  startClose() {
+    if (this.isClosing) return; // evita dobles clicks
+    this.isClosing = true;
+
+    // espera el mismo tiempo que la animación CSS
+    setTimeout(() => {
+      this.close.emit();
+    }, 300);
   }
 }

@@ -9,10 +9,10 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AddCarModalComponent {
-
   @Output() close = new EventEmitter<void>();
 
   carForm: FormGroup;
+  isClosing = false;
 
   constructor(private fb: FormBuilder) {
     this.carForm = this.fb.group({
@@ -25,19 +25,27 @@ export class AddCarModalComponent {
       kilometers: [0, [Validators.required, Validators.min(0)]],
       color: ['', Validators.required],
       description: ['', Validators.required],
-      images: [''] // opcional
+      images: ['']
     });
   }
 
   addCar() {
     if (this.carForm.valid) {
-      console.log('Auto agregado:', this.carForm.value);
+
       
-      this.onClose();
+
+      this.startClose();
     }
   }
 
+  startClose() {
+    this.isClosing = true;
+    setTimeout(() => {
+      this.close.emit();
+    }, 300); // mismo tiempo que la animación CSS
+  }
+
   onClose() {
-    this.close.emit();
+    this.startClose();
   }
 }

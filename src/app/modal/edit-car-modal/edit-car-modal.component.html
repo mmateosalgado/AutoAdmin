@@ -1,5 +1,5 @@
 <!-- edit-car-modal.component.html -->
-<div class="modal" role="dialog" aria-modal="true" aria-labelledby="editCarTitle">
+<div class="modal" [class.closing]="isClosing" role="dialog" aria-modal="true" aria-labelledby="editCarTitle">
   <div class="modal-content">
     <button (click)="onClose()" class="modal-close" aria-label="Cerrar modal">&times;</button>
 

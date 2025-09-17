@@ -1,4 +1,4 @@
-<div class="add-sidebar">
+<div class="add-sidebar" [class.closing]="isClosing">
   <div class="add-content">
     <button (click)="onClose()" class="sidebar-close" aria-label="Cerrar Agregar Auto">&times;</button>
     <form [formGroup]="carForm" class="car-form" novalidate>
