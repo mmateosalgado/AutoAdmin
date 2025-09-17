@@ -12,18 +12,28 @@
 
 .toggle-ball {
   position: absolute;
-  top: 3px;            /* centrado vertical */
+  top: 3px;
   left: 3px;
-  width: 25px;         /* bolita más chica para caber en 31px */
+  width: 25px;
   height: 25px;
-  background: #fff;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: transform 0.3s;
+  transition: transform 0.3s, background 0.5s ease-in-out;
 }
 
+/* Sol → amarillo-naranja */
+.toggle-ball.sun {
+  background: linear-gradient(135deg, #facc15, #f97316);
+}
+
+/* Luna → azul-violeta */
+.toggle-ball.moon {
+  background: linear-gradient(135deg, #3b82f6, #9333ea);
+}
+
+/* SVG adentro sigue igual */
 .toggle-ball svg {
   width: 15px;
   height: 15px;
@@ -32,7 +42,7 @@
   fill: none;
 }
 
-/* Estado activo (bolita a la derecha con luna) */
+/* Posición de la bolita en modo activo */
 .toggle.active .toggle-ball {
-  transform: translateX(29px); /* ajustado para 60px de ancho */
+  transform: translateX(29px);
 }
