@@ -60,13 +60,6 @@ app-header {
     padding: 10px;
   }
 }
-/* Contenedor del botón de logout */
-.logout-container {
-  display: flex;
-  justify-content: flex-end;
-  padding: 16px 20px;
-  border-top: 1px solid #eee;
-}
 
 /* Botón logout */
 .logout-btn {

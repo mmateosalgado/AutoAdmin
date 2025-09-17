@@ -68,16 +68,30 @@
       <!-- imagenes -->
       <div class="field images-upload">
         <label>Imágenes</label>
+
+        <!-- imágenes existentes -->
+        <div class="existing-images">
+          @if (car?.image) {
+          <div class="image-wrapper">
+            <img [src]="car?.image" alt="Auto" />
+            <button type="button" class="btn-delete">✖</button>
+          </div>
+          }
+        </div>
+
+
+        <!-- subir nuevas imágenes -->
         <div class="upload-drop" aria-hidden="true">
           <button type="button" class="btn-upload">📤 Subir Imágenes</button>
-          <div class="upload-hint">Selecciona multiples imágenes del auto</div>
+          <input type="file" #fileInput multiple hidden />
+          <div class="upload-hint">Selecciona múltiples imágenes del auto</div>
         </div>
       </div>
 
       <!-- acciones -->
       <div class="actions">
         <button type="submit" class="btn-save">Actualizar Auto</button>
-        <button (click)="onClose()"  type="button" class="btn-cancel">Cancelar</button>
+        <button (click)="onClose()" type="button" class="btn-cancel">Cancelar</button>
       </div>
     </form>
   </div>

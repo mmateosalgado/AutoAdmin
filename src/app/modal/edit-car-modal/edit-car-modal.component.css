@@ -177,3 +177,47 @@
   .actions { flex-direction: column; align-items: stretch; }
   .btn-save, .btn-cancel { width: 100%; }
 }
+
+.existing-images {
+  margin-bottom: 10px;
+}
+
+.image-wrapper {
+  position: relative;
+  display: inline-block;
+  width: 120px;      /* ancho de la imagen */
+  height: 80px;      /* alto de la imagen */
+  margin-right: 10px;
+  border-radius: 4px;
+  overflow: hidden;
+  border: 1px solid #ccc;
+}
+
+.image-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* mantiene proporción sin deformar */
+  display: block;
+}
+
+.btn-delete {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  background-color: red;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  font-weight: bold;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+}
+
+.btn-delete:hover {
+  background-color: darkred;
+}
