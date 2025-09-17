@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Output } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { CarsService } from '../../data/services/car.service';
 
 @Component({
   selector: 'app-add-car-modal',
@@ -11,10 +12,13 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 export class AddCarModalComponent {
   @Output() close = new EventEmitter<void>();
 
+  car:Car | any;
   carForm: FormGroup;
   isClosing = false;
+  carService: CarsService = new CarsService();
 
   constructor(private fb: FormBuilder) {
+
     this.carForm = this.fb.group({
       make: ['', Validators.required],
       model: ['', Validators.required],
@@ -32,7 +36,11 @@ export class AddCarModalComponent {
   addCar() {
     if (this.carForm.valid) {
 
+      this.car = this.carForm.value;
+
+      // this.carService.addCar(this.car);
       
+      console.log('Nuevo auto agregado:', this.car);
 
       this.startClose();
     }

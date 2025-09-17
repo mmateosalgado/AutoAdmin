@@ -1,11 +1,13 @@
 <article class="car-card" role="article" aria-label="Tarjeta de auto">
   <div class="image-wrap">
-    <img [src]="car.image.toString()" alt="Chevrolet Corsa"/>
+    <img [src]="car.image.toString()" alt="Chevrolet Corsa" />
     <div class="badges">
       @for (pub of car.publishStatus; track pub.platform) {
-        <span class="badge {{ pub.platform.toLowerCase() }}">
-          {{ pub.platform }}
-        </span>
+      @if(pub.status === 'enabled') {
+      <span class="badge {{ pub.platform.toLowerCase() }}">
+        {{ pub.platform }}
+      </span>
+      }
       }
     </div>
   </div>
@@ -35,12 +37,11 @@
 
     <div class="publish-row">
       @for (pub of car.publishStatus; track pub.platform) {
-        <button
-          class="btn-pub"
-          [class.disabled]="pub.status === 'disabled'"
-        >
-          En {{ pub.platform }}
-        </button>
+        @if(pub.status === 'disabled') {
+          <button class="btn-pub {{pub.platform.toLocaleLowerCase()}}">
+            Publicar en {{ pub.platform }}
+          </button>
+        }
       }
     </div>
   </div>

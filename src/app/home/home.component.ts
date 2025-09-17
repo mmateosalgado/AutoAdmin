@@ -20,6 +20,7 @@ export class HomeComponent {
   carToEdit: Car | null = null;
   showAddCarModal = false;
   showEditCarModal = false;
+  countData: CountData | null = null;
 
   constructor(private authService: AuthService, private router: Router) {}
 

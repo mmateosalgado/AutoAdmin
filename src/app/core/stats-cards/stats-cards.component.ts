@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { CarsService } from '../../data/services/car.service';
 
 @Component({
   selector: 'app-stats-cards',
@@ -7,4 +8,12 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
   styleUrl: './stats-cards.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class StatsCardsComponent { }
+export class StatsCardsComponent {
+
+  countData: CountData | null = null;
+
+  constructor(carService:CarsService) {
+    this.countData = carService.countDataCars();
+  }
+
+}

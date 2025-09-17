@@ -2,7 +2,6 @@ import { ChangeDetectionStrategy, Component, EventEmitter, Output } from '@angul
 import { CarCardComponent } from '../car-card/car-card.component';
 import { CarsService } from '../../data/services/car.service';
 
-
 @Component({
   selector: 'app-car-list',
   imports: [CarCardComponent],
@@ -13,11 +12,15 @@ import { CarsService } from '../../data/services/car.service';
 export class CarListComponent { 
   @Output() outputCar = new EventEmitter<Car>();
   @Output() close = new EventEmitter<void>();
+  @Output() countList = new EventEmitter<number>();
 
   cars: Car[] = [];
+  countListCars:CountData|null = null;
 
   constructor(carService:CarsService) {
-    this.cars = carService.getCars();
+    carService.getCars().subscribe(cars => {
+      this.cars = cars;
+    });
   }
 
   EditCar(car: Car) {

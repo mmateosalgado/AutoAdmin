@@ -13,7 +13,7 @@
         "image": "corsa.jpg",
         "publishStatus": [
             { "platform": "FB", "status": "disabled" },
-            { "platform": "ML", "status": "disabled" }
+            { "platform": "ML", "status": "enabled" }
         ]
     },
     {
@@ -29,7 +29,7 @@
         "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi molestie ut turpis in iaculis. Curabitur varius turpis nec dolor malesuada, vitae commodo quam pulvinar. Cras bibendum interdum lobortis. Aenean ipsum sapien, euismod non cursus sit amet, sodales in nibh. Sed porta mauris ut ante maximus efficitur. Proin vulputate ex turpis.",
         "image": "corsa.jpg",
         "publishStatus": [
-            { "platform": "FB", "status": "disabled" },
+            { "platform": "FB", "status": "enabled" },
             { "platform": "ML", "status": "disabled" }
         ]
     },
