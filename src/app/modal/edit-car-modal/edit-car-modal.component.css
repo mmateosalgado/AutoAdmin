@@ -94,6 +94,7 @@
   color: #374151;
   font-weight: 600;
 }
+
 .field input,
 .field select,
 .field textarea {
@@ -106,6 +107,7 @@
   box-sizing: border-box;
   outline: none;
 }
+
 .field input:focus,
 .field select:focus,
 .field textarea:focus {
@@ -128,6 +130,7 @@
   margin-top: 6px;
   background: transparent;
 }
+
 .btn-upload {
   display: inline-block;
   padding: 8px 14px;
@@ -137,6 +140,12 @@
   cursor: pointer;
   font-weight: 600;
 }
+
+.btn-upload:hover {
+  background: #f3f4f6;
+  border-color: #d1d5db;
+}
+
 .upload-hint {
   margin-top: 8px;
   color: #9ca3af;
@@ -151,6 +160,7 @@
   align-items: center;
   justify-content: flex-start;
 }
+
 .btn-save {
   background: linear-gradient(180deg,#2b6ef6 0%,#2563eb 100%);
   color: white;
@@ -161,6 +171,11 @@
   cursor: pointer;
   box-shadow: 0 8px 18px rgba(37,99,235,0.12);
 }
+
+.btn-save:hover {
+  background: linear-gradient(180deg,#2563eb 0%,#1d4ed8 100%);
+}
+
 .btn-cancel {
   background: white;
   border: 1px solid #e6e9ee;
@@ -168,6 +183,10 @@
   border-radius: 10px;
   cursor: pointer;
   color: #374151;
+}
+
+.btn-cancel:hover {
+  background: #f3f4f6;
 }
 
 /* responsive: pasar a una columna en pantallas pequeñas */
