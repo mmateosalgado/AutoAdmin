@@ -4,9 +4,21 @@ import cars from "C:/Users/Usuario/AutoAdmin/src/app/temp-data/autos.json";
 
 @Injectable({ providedIn: 'root' })
 export class CarsService {
-  private cars = [...cars];
-  private carsSubject = new BehaviorSubject<any[]>(this.cars);
+  private cars: Car[] = [];
+  private carsSubject = new BehaviorSubject<any[]>([]);
   cars$ = this.carsSubject.asObservable();
+
+  constructor() {
+    // cargar datos iniciales del json
+    const stored = localStorage.getItem('cars');
+    if (stored) {
+      this.cars = JSON.parse(stored);
+    } else {
+      this.cars = [...cars]; // autos.json inicial
+      localStorage.setItem('cars', JSON.stringify(this.cars));
+    }
+    this.carsSubject.next(this.cars);
+  }
 
   getCars() {
     return this.cars$;
@@ -14,7 +26,14 @@ export class CarsService {
 
   addCar(newCar: any) {
     this.cars.push(newCar);
-    this.carsSubject.next([...this.cars]); // emitir nueva referencia
+    localStorage.setItem('cars', JSON.stringify(this.cars)); // guardar persistencia fake
+    this.carsSubject.next([...this.cars]);
+  }
+
+  deleteCar(patent: number) {
+    this.cars = this.cars.filter(car => car.patent !== patent);
+    localStorage.setItem('cars', JSON.stringify(this.cars)); // guardar persistencia fake
+    this.carsSubject.next([...this.cars]);
   }
 
   countDataCars(): CountData {

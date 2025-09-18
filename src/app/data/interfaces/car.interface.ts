@@ -9,7 +9,7 @@ interface Car {
     transmission: string;
     color: string;
     description?: string;
-    image: string;
+    image?: string;
     publishStatus?: {
         platform: string;
         status: string;

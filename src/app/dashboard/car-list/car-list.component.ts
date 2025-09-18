@@ -18,6 +18,8 @@ export class CarListComponent {
   countListCars:CountData|null = null;
 
   constructor(carService:CarsService) {
+
+    // limpiar la suscripción anterior para evitar múltiples emisiones
     carService.getCars().subscribe(cars => {
       this.cars = cars;
     });

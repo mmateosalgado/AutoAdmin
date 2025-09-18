@@ -28,6 +28,7 @@ export class AddCarModalComponent {
       price: [0, [Validators.required, Validators.min(1)]],
       kilometers: [0, [Validators.required, Validators.min(0)]],
       color: ['', Validators.required],
+      patent: [0, [Validators.required, Validators.min(1)]],
       description: ['', Validators.required],
       images: ['']
     });
@@ -38,7 +39,7 @@ export class AddCarModalComponent {
 
       this.car = this.carForm.value;
 
-      // this.carService.addCar(this.car);
+      this.carService.addCar(this.car);
       
       console.log('Nuevo auto agregado:', this.car);
 

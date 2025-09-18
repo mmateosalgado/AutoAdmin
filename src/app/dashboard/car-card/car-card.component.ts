@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, inject, Input, Output } from '@angular/core';
+import { CarsService } from '../../data/services/car.service';
 
 @Component({
   selector: 'app-car-card',
@@ -12,8 +13,10 @@ export class CarCardComponent {
   @Input() car!: Car;
   @Output() editCar = new EventEmitter<Car>;
 
+  carService: CarsService = inject(CarsService);
+
   DeleteCar() {
-    console.log('Eliminar auto:', this.car);
+    this.carService.deleteCar(this.car.patent);
   }
 
   EditCar() {
