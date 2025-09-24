@@ -78,8 +78,6 @@
           </div>
           }
         </div>
-
-
         <!-- subir nuevas imágenes -->
         <div class="upload-drop" aria-hidden="true">
           <button type="button" class="btn-upload">📤 Subir Imágenes</button>
@@ -87,7 +85,33 @@
           <div class="upload-hint">Selecciona múltiples imágenes del auto</div>
         </div>
       </div>
-
+      <!-- estado de publicación -->
+      <div class="field publish-status">
+        <label>Estado de publicación</label>
+        <div class="publish-list">
+          @if (car?.publishStatus?.length) {
+          <div class="publish-grid">
+            @for (pub of car?.publishStatus; track pub.platform) {
+            <div class="publish-card" [class.disabled]="pub.status !== 'enabled'">
+              <div class="publish-info">
+                <span class="platform">{{ pub.platform }}</span>
+                <span class="status" [class.enabled]="pub.status === 'enabled'">
+                  {{ pub.status === 'enabled' ? 'Publicado' : 'No publicado' }}
+                </span>
+              </div>
+              @if (pub.status === 'enabled') {
+              <button type="button" class="btn-unpublish">
+                Quitar de {{ pub.platform }}
+              </button>
+              }
+            </div>
+            }
+          </div>
+          } @else {
+          <p class="no-publish">No está publicado en ninguna plataforma.</p>
+          }
+        </div>
+      </div>
       <!-- acciones -->
       <div class="actions">
         <button type="submit" class="btn-save">Actualizar Auto</button>

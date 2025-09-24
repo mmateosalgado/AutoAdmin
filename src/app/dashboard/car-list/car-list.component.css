@@ -14,3 +14,7 @@
 @media (max-width: 720px) {
   .car-list { grid-template-columns: 1fr; }
 }
+
+app-empty-state {
+  grid-column: 1 / -1; /* ocupa todas las columnas del grid */
+}

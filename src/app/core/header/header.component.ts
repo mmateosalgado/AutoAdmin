@@ -1,9 +1,8 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Output } from '@angular/core';
-import { ToggleDarkModeComponent } from "../toggleDarkMode/toggleDarkMode.component";
 
 @Component({
   selector: 'app-header',
-  imports: [ToggleDarkModeComponent],
+  imports: [],
   templateUrl: './header.component.html',
   styleUrl: './header.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,

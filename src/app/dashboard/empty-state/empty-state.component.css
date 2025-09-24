@@ -1,13 +1,18 @@
 .empty-card {
   background: white;
   border-radius: 12px;
-  padding: 36px;
+  padding: 48px 24px;  /* más alto */
   border: 1px solid rgba(15,23,42,0.06);
   box-shadow: 0 6px 12px rgba(2,6,23,0.03);
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 8px;
+  margin-top: 16px;
+
+  width: 100%;          /* ocupa todo */
+  max-width: 1200px;    /* no se va demasiado ancho en pantallas grandes */
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .empty-inner {
@@ -19,18 +24,12 @@
   margin-top: 12px;
   margin-bottom: 6px;
   color: #0f172a;
-  font-size: 18px;
-  font-weight: 800;
-}
-.empty-inner p { margin:0 0 14px; }
-
-.btn-primary {
-  background: linear-gradient(180deg,#2b6ef6 0%, #2563eb 100%);
-  color: white;
-  border: none;
-  padding: 10px 14px;
-  border-radius: 10px;
+  font-size: 20px;
   font-weight: 700;
-  cursor: pointer;
-  box-shadow: 0 6px 10px rgba(37,99,235,0.12);
+}
+
+.empty-inner p {
+  margin: 0;
+  font-size: 14px;
+  color: #9ca3af;
 }

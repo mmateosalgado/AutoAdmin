@@ -103,3 +103,10 @@
   .actions { flex-direction: column; }
   .btn-save, .btn-cancel { width:100%; }
 }
+
+.error-msg {
+  margin-top: 4px;
+  font-size: 13px;
+  font-weight: 500;
+  color: #dc2626; /* rojo */
+}

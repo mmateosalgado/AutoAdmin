@@ -240,3 +240,83 @@
 .btn-delete:hover {
   background-color: darkred;
 }
+
+/* publish status */
+.publish-list {
+  margin-top: 8px;
+}
+
+.publish-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 12px;
+}
+
+.publish-card {
+  border: 1px solid #e6e9ee;
+  border-radius: 10px;
+  padding: 12px;
+  background: #f9fafb;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 8px;
+  transition: 0.2s ease-in-out;
+}
+
+.publish-card:hover {
+  box-shadow: 0 4px 10px rgba(0,0,0,0.06);
+  transform: translateY(-2px);
+}
+
+.publish-card.disabled {
+  opacity: 0.6;
+  background: #f3f4f6;
+}
+
+.publish-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.platform {
+  font-weight: 700;
+  font-size: 14px;
+  color: #111827;
+}
+
+.status {
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.status.enabled {
+  color: #16a34a; /* verde */
+}
+
+.status:not(.enabled) {
+  color: #9ca3af; /* gris */
+}
+
+.btn-unpublish {
+  background: #fee2e2;
+  color: #b91c1c;
+  border: none;
+  padding: 6px 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 600;
+  transition: background 0.2s;
+}
+
+.btn-unpublish:hover {
+  background: #fca5a5;
+}
+
+.no-publish {
+  font-size: 13px;
+  color: #6b7280;
+  margin-top: 6px;
+}

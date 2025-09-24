@@ -1,59 +1,74 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 import cars from "C:/Users/Usuario/AutoAdmin/src/app/temp-data/autos.json";
 
 @Injectable({ providedIn: 'root' })
 export class CarsService {
   private cars: Car[] = [];
-  private carsSubject = new BehaviorSubject<any[]>([]);
+  private carsSubject = new BehaviorSubject<Car[]>([]);
   cars$ = this.carsSubject.asObservable();
 
   constructor() {
-    // cargar datos iniciales del json
-    const stored = localStorage.getItem('cars');
-    if (stored) {
-      this.cars = JSON.parse(stored);
+    const storedCars = localStorage.getItem('cars');
+    if (storedCars) {
+      this.cars = JSON.parse(storedCars);
     } else {
-      this.cars = [...cars]; // autos.json inicial
+      this.cars = [...cars];
       localStorage.setItem('cars', JSON.stringify(this.cars));
     }
-    this.carsSubject.next(this.cars);
+
+    this.carsSubject.next([...this.cars]);
   }
 
-  getCars() {
+  getCars(): Observable<Car[]> {
     return this.cars$;
   }
 
-  addCar(newCar: any) {
+  addCar(newCar: Car): boolean {
+    const exists = this.cars.some(car => car.patent.toUpperCase() === newCar.patent);
+    if (exists) return false;
+
+    // Normalizamos patente a mayúsculas
+    newCar.patent = newCar.patent.toUpperCase();
+
     this.cars.push(newCar);
-    localStorage.setItem('cars', JSON.stringify(this.cars)); // guardar persistencia fake
+    localStorage.setItem('cars', JSON.stringify(this.cars));
     this.carsSubject.next([...this.cars]);
+
+    return true;
   }
 
-  deleteCar(patent: number) {
+
+  deleteCar(patent: string) {
     this.cars = this.cars.filter(car => car.patent !== patent);
-    localStorage.setItem('cars', JSON.stringify(this.cars)); // guardar persistencia fake
-    this.carsSubject.next([...this.cars]);
+    localStorage.setItem('cars', JSON.stringify(this.cars));
+    this.carsSubject.next([...this.cars]); // 🔑 esto dispara la actualización en tiempo real
   }
 
-  countDataCars(): CountData {
-    let totalPrice = 0;
-    let totalMeli = 0;
-    let totalFb = 0;
+  // 🔑 ahora retorna observable que se recalcula con cada cambio
+  countDataCars(): Observable<CountData> {
+    return this.cars$.pipe(
+      map(cars => {
+        let totalPrice = 0;
+        let totalMeli = 0;
+        let totalFb = 0;
 
-    for (const car of this.cars) {
-      totalPrice += car.price;
+        for (const car of cars) {
+          totalPrice += car.price;
 
-      if (car.publishStatus?.some(p => p.platform === 'ML' && p.status === 'enabled')) {
-        totalMeli++;
-      }
-      if (car.publishStatus?.some(p => p.platform === 'FB' && p.status === 'enabled')) {
-        totalFb++;
-      }
-    }
+          if (car.publishStatus?.some(p => p.platform === 'ML' && p.status === 'enabled')) {
+            totalMeli++;
+          }
+          if (car.publishStatus?.some(p => p.platform === 'FB' && p.status === 'enabled')) {
+            totalFb++;
+          }
+        }
 
-    const totalCars = this.cars.length;
+        const totalCars = cars.length;
 
-    return { totalPrice, totalMeli, totalFb, totalCars };
+        return { totalPrice, totalMeli, totalFb, totalCars };
+      })
+    );
   }
 }

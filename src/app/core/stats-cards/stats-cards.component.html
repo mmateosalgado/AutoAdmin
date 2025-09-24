@@ -1,21 +1,21 @@
-<div class="stats-cards">
+<div class="stats-cards" *ngIf="countData$ | async as countData">
   <div class="stat-card">
     <div class="stat-label">Total de Autos</div>
-    <div class="stat-value">{{countData?.totalCars}}</div>
+    <div class="stat-value">{{ countData.totalCars }}</div>
   </div>
 
   <div class="stat-card">
     <div class="stat-label">En Marketplace</div>
-    <div class="stat-value colored blue">{{countData?.totalFb}}</div>
+    <div class="stat-value colored blue">{{ countData.totalFb }}</div>
   </div>
 
   <div class="stat-card">
     <div class="stat-label">En Mercado Libre</div>
-    <div class="stat-value colored orange">{{countData?.totalMeli}}</div>
+    <div class="stat-value colored orange">{{ countData.totalMeli }}</div>
   </div>
 
   <div class="stat-card">
     <div class="stat-label">Valor Total</div>
-    <div class="stat-value colored green">${{countData?.totalPrice}}</div>
+    <div class="stat-value colored green">${{ countData.totalPrice }}</div>
   </div>
 </div>

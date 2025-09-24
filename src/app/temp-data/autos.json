@@ -1,6 +1,6 @@
 [
     {
-        "patent": 1,
+        "patent": "ABC 123",
         "make": "Chevrolet",
         "model": "Corsa",
         "year": 2015,
@@ -12,12 +12,22 @@
         "description": "Excelente condicion",
         "image": "corsa.jpg",
         "publishStatus": [
-            { "platform": "FB", "status": "enabled" },
-            { "platform": "ML", "status": "enabled" }
+            {
+                "platform": "FB",
+                "status": "disabled"
+            },
+            {
+                "platform": "ML",
+                "status": "disabled"
+            },
+            {
+                "platform": "WEB",
+                "status": "disabled"
+            }
         ]
     },
     {
-        "patent": 2,
+        "patent": "KAC 931",
         "make": "Chevrolet",
         "model": "Corsa",
         "year": 2015,
@@ -29,12 +39,22 @@
         "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi molestie ut turpis in iaculis. Curabitur varius turpis nec dolor malesuada, vitae commodo quam pulvinar. Cras bibendum interdum lobortis. Aenean ipsum sapien, euismod non cursus sit amet, sodales in nibh. Sed porta mauris ut ante maximus efficitur. Proin vulputate ex turpis.",
         "image": "corsa.jpg",
         "publishStatus": [
-            { "platform": "FB", "status": "disabled" },
-            { "platform": "ML", "status": "enabled" }
+            {
+                "platform": "FB",
+                "status": "enabled"
+            },
+            {
+                "platform": "ML",
+                "status": "enabled"
+            },
+            {
+                "platform": "WEB",
+                "status": "enabled"
+            }
         ]
     },
     {
-        "patent": 3,
+        "patent": "IKS 123",
         "make": "Chevrolet",
         "model": "Corsa",
         "year": 2015,
@@ -46,8 +66,18 @@
         "description": "Excelente condicion",
         "image": "corsa.jpg",
         "publishStatus": [
-            { "platform": "FB", "status": "disabled" },
-            { "platform": "ML", "status": "disabled" }
+            {
+                "platform": "FB",
+                "status": "enabled"
+            },
+            {
+                "platform": "ML",
+                "status": "enabled"
+            },
+            {
+                "platform": "WEB",
+                "status": "enabled"
+            }
         ]
     }
 ]

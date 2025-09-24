@@ -1,19 +1,21 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { CarsService } from '../../data/services/car.service';
+import { Observable } from 'rxjs';
+import { AsyncPipe, CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-stats-cards',
-  imports: [],
+  imports: [AsyncPipe, CommonModule],
   templateUrl: './stats-cards.component.html',
-  styleUrl: './stats-cards.component.css',
+  styleUrls: ['./stats-cards.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class StatsCardsComponent {
+  private carsService = inject(CarsService);
 
-  countData: CountData | null = null;
+  countData$: Observable<CountData> = this.carsService.countDataCars();
 
-  constructor(carService:CarsService) {
-    this.countData = carService.countDataCars();
+  onDelete(patent: string) {
+    this.carsService.deleteCar(patent);
   }
-
 }

@@ -16,10 +16,20 @@ export class CarCardComponent {
   carService: CarsService = inject(CarsService);
 
   DeleteCar() {
-    this.carService.deleteCar(this.car.patent);
+    if (confirm("Esta seguro que desea eliminar este auto?")) {
+      this.carService.deleteCar(this.car.patent);
+      alert("Auto eliminado con exito");
+    }
   }
 
   EditCar() {
     this.editCar.emit(this.car);
+  }
+
+  SubirHistoriaCar() {
+    if (confirm("Esta seguro que desea publicar una historia en Instagram de este auto?")) {
+      //this.carService.subirHistoriaInstagram(this.car.patent);
+      alert("Historia publicada con exito");
+    }
   }
 }

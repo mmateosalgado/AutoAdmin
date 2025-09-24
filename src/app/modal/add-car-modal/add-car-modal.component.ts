@@ -12,13 +12,12 @@ import { CarsService } from '../../data/services/car.service';
 export class AddCarModalComponent {
   @Output() close = new EventEmitter<void>();
 
-  car:Car | any;
+  addCarResp: boolean = true;
+  car: Car | any;
   carForm: FormGroup;
   isClosing = false;
-  carService: CarsService = new CarsService();
 
-  constructor(private fb: FormBuilder) {
-
+  constructor(private fb: FormBuilder, private carService: CarsService) {
     this.carForm = this.fb.group({
       make: ['', Validators.required],
       model: ['', Validators.required],
@@ -36,12 +35,25 @@ export class AddCarModalComponent {
 
   addCar() {
     if (this.carForm.valid) {
-
       this.car = this.carForm.value;
 
-      this.carService.addCar(this.car);
-      
-      console.log('Nuevo auto agregado:', this.car);
+      const added = this.carService.addCar(this.car);
+
+      if (!added) {
+        alert("Esta patente ya existe. Por favor, ingrese una patente diferente.");
+        return;
+      }
+
+      if (confirm(
+        "¿Está seguro que desea agregar este auto? " +
+        "La patente no se puede modificar luego! (" + this.car.patent + ")"
+      )) {
+        alert("Auto agregado con éxito");
+      } else {
+        // Si cancela, deshacer la inserción
+        this.carService.deleteCar(this.car.patent);
+        alert("Operación cancelada");
+      }
 
       this.startClose();
     }

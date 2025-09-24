@@ -11,6 +11,7 @@
 /* image area */
 .image-wrap {
   position: relative;
+  width: 390px;
   height: 180px;
   overflow: hidden;
 }
@@ -47,6 +48,10 @@
 
 .badge.ml {
   color: #b45309;
+}
+
+.badge.web {
+  color: #000000;
 }
 
 /* content */
@@ -99,6 +104,15 @@
   color: #374151;
 }
 
+.patent{
+  background: #fde68a;
+  border-radius: 999px;
+  padding: 6px 8px;
+  font-size: 12px;
+  border: 1px solid rgba(15, 23, 42, 0.04);
+  color: #92400e;
+}
+
 /* desc */
 .desc {
   margin: 6px 0 0;
@@ -129,6 +143,21 @@
   background: #f8fafc;
 }
 
+.btn-ig{
+
+  background: white;
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  border-radius: 8px;
+  padding: 8px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.btn-ig:hover{
+
+  background: rgb(250, 226, 254);
+}
+
 .btn-delete {
   width: 40px;
   background: white;
@@ -144,8 +173,10 @@
 }
 
 /* publish buttons */
+
 .publish-row {
   display: flex;
+  flex-direction: column; /* ✅ apila los botones en columna */
   gap: 8px;
   margin-top: 8px;
 }

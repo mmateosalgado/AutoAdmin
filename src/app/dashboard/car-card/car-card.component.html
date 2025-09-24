@@ -3,6 +3,9 @@
     @if(car.image) {
         <img [src]="car.image" alt="Chevrolet Corsa" />
     }
+    @else {
+        <img src="https://placehold.co/390x180?text=No+Image+Available" alt="No Image Available" />
+    }
     <img alt="Chevrolet Corsa" />
     <div class="badges">
       @for (pub of car.publishStatus; track pub.platform) {
@@ -29,12 +32,14 @@
       <span class="chip">{{car.fuel}}</span>
       <span class="chip">{{car.transmission}}</span>
       <span class="chip">{{car.color}}</span>
+      <span class="patent">{{car.patent}}</span>
     </div>
 
     <p class="desc">{{car.description}}</p>
 
     <div class="actions">
       <button (click)="EditCar()" class="btn-edit">✎ Editar</button>
+      <button (click)="SubirHistoriaCar()" class="btn-ig">Publicar historia Instagram</button>
       <button (click)="DeleteCar()" class="btn-delete" title="Eliminar">🗑️</button>
     </div>
 

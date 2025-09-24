@@ -1,6 +1,15 @@
 <section class="car-list">
-  <!-- repite app-car-card según datos -->
-  @for (car of cars; track car.patent) {
-    <div class="card-wrap"><app-car-card  (close)="close" (editCar)="EditCar($event)" [car]="car"></app-car-card></div>
+  @if ((cars$ | async)?.length === 0) {
+    <app-empty-state></app-empty-state>
+  } @else {
+    @for (car of (cars$ | async); track car.patent) {
+      <div class="card-wrap">
+        <app-car-card
+          [car]="car"
+          (editCar)="EditCar($event)"
+          (close)="close.emit()">
+        </app-car-card>
+      </div>
+    }
   }
 </section>
