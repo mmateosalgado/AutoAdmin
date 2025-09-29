@@ -32,6 +32,12 @@ export class CarsService {
     // Normalizamos patente a mayúsculas
     newCar.patent = newCar.patent.toUpperCase();
 
+    newCar.publishStatus = [
+      { platform: 'ML', status: 'disabled' },
+      { platform: 'FB', status: 'disabled' },
+      { platform: 'WEB', status: 'disabled' }
+    ];
+
     this.cars.push(newCar);
     localStorage.setItem('cars', JSON.stringify(this.cars));
     this.carsSubject.next([...this.cars]);
