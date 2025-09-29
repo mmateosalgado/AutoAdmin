@@ -2,7 +2,8 @@
   position: fixed;
   top: 0;
   left: 0;
-  width: 380px;
+  width: 100%;
+  max-width: 380px; /* en desktop no pasa de este tamaño */
   height: 100vh;
   background: white;
   border-right: 1px solid #e6e9ee;
@@ -13,7 +14,9 @@
   padding: 22px;
   overflow-y: auto;
   animation: slideIn 0.3s ease-out;
+  box-sizing: border-box; /* importante para que respete padding dentro del ancho */
 }
+
 
 /* Animación entrada */
 @keyframes slideIn {
@@ -97,12 +100,16 @@
 .btn-cancel { background:white; border:1px solid #e6e9ee; padding:10px 14px; border-radius:10px; cursor:pointer; color:#374151; }
 .btn-cancel:hover { background:#f3f4f6; }
 
-@media (max-width:720px) {
-  .add-sidebar { width: 100%; }
+@media (max-width: 720px) {
+  .add-sidebar {
+    width: 100%;
+    max-width: 100%; /* fuerza que use todo el ancho en mobile */
+  }
   .row { grid-template-columns: 1fr; }
   .actions { flex-direction: column; }
   .btn-save, .btn-cancel { width:100%; }
 }
+
 
 .error-msg {
   margin-top: 4px;
