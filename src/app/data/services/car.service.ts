@@ -71,4 +71,40 @@ export class CarsService {
       })
     );
   }
+
+  publishOn(patent: string, platform: string) {
+    const carIndex = this.cars.findIndex(car => car.patent === patent);
+    if (carIndex !== -1) {
+      const car = this.cars[carIndex];
+      if (!car.publishStatus) {
+        car.publishStatus = [];
+      }
+      const fbStatus = car.publishStatus.find(p => p.platform === platform);
+      if (fbStatus) {
+        fbStatus.status = 'enabled';
+      } else {
+        car.publishStatus.push({ platform: platform, status: 'enabled' });
+      }
+      this.cars[carIndex] = car;
+      localStorage.setItem('cars', JSON.stringify(this.cars));
+      this.carsSubject.next([...this.cars]);
+    }
+  }
+
+  deleteFromPlatform(patent: string, platform: string) {
+    const carIndex = this.cars.findIndex(car => car.patent === patent);
+    if (carIndex !== -1) {
+      const car = this.cars[carIndex];
+      if (!car.publishStatus) {
+        return; // No hay nada que eliminar
+      }
+      const fbStatus = car.publishStatus.find(p => p.platform === platform);
+      if (fbStatus) {
+        fbStatus.status = 'disabled';
+        this.cars[carIndex] = car;
+        localStorage.setItem('cars', JSON.stringify(this.cars));
+        this.carsSubject.next([...this.cars]);
+      }
+    }
+  }
 }

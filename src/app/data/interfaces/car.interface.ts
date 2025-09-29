@@ -1,5 +1,6 @@
 interface Car {
     patent: string;
+    status: string;
     make: string;
     model: string;
     year: number;

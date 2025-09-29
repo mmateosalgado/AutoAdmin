@@ -1,12 +1,12 @@
 <article class="car-card" role="article" aria-label="Tarjeta de auto">
   <div class="image-wrap">
     @if(car.image) {
-        <img [src]="car.image" alt="Chevrolet Corsa" />
+    <img [src]="car.image" alt="Chevrolet Corsa" />
     }
     @else {
-        <img src="https://placehold.co/390x180?text=No+Image+Available" alt="No Image Available" />
+    <img src="https://placehold.co/390x180?text=No+Image+Available" alt="No Image Available" />
     }
-    <img alt="Chevrolet Corsa" />
+    @if(car.status !== "vendido"){
     <div class="badges">
       @for (pub of car.publishStatus; track pub.platform) {
       @if(pub.status === 'enabled') {
@@ -16,11 +16,12 @@
       }
       }
     </div>
+    }
   </div>
 
   <div class="card-body">
     <div class="card-head">
-      <h4 class="car-title">{{car.make}} {{car.model}}</h4>
+      <h4 class="car-title">{{car.make}} {{car.model}} <span class="status {{car.status}}">{{car.status}}</span></h4>
       <div class="price">$ {{car.price}}</div>
     </div>
 
@@ -37,6 +38,7 @@
 
     <p class="desc">{{car.description}}</p>
 
+    @if(car.status !== "vendido"){
     <div class="actions">
       <button (click)="EditCar()" class="btn-edit">✎ Editar</button>
       <button (click)="SubirHistoriaCar()" class="btn-ig">Publicar historia Instagram</button>
@@ -46,11 +48,11 @@
     <div class="publish-row">
       @for (pub of car.publishStatus; track pub.platform) {
         @if(pub.status === 'disabled') {
-          <button class="btn-pub {{pub.platform.toLocaleLowerCase()}}">
-            Publicar en {{ pub.platform }}
-          </button>
+        <button (click)="PublishOn(pub.platform)" class="btn-pub {{pub.platform.toLocaleLowerCase()}}">
+          Publicar en {{ pub.platform }}
+        </button>
         }
       }
-    </div>
+    </div>}
   </div>
 </article>

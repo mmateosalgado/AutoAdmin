@@ -15,6 +15,13 @@ export class CarCardComponent {
 
   carService: CarsService = inject(CarsService);
 
+  PublishOn(platform: string) {
+    if (confirm(`Esta seguro que desea publicar este auto en ${platform}?`)) {
+      this.carService.publishOn(this.car.patent, platform);
+      alert(`Auto publicado en ${platform} con exito`);
+    }
+  }
+
   DeleteCar() {
     if (confirm("Esta seguro que desea eliminar este auto?")) {
       this.carService.deleteCar(this.car.patent);

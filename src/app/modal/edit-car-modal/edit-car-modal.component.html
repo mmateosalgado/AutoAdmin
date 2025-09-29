@@ -100,7 +100,7 @@
                 </span>
               </div>
               @if (pub.status === 'enabled') {
-              <button type="button" class="btn-unpublish">
+              <button (click)="deleteFromPlatform(car?.patent,pub.platform)" type="button" class="btn-unpublish">
                 Quitar de {{ pub.platform }}
               </button>
               }

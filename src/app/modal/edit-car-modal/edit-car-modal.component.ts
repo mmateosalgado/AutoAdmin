@@ -1,4 +1,5 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, inject, Input, OnInit, Output } from '@angular/core';
+import { CarsService } from '../../data/services/car.service';
 
 @Component({
   selector: 'app-edit-car-modal',
@@ -11,7 +12,7 @@ export class EditCarModalComponent implements OnInit {
   @Output() close = new EventEmitter<void>();
   isClosing = false;
 
-  constructor() {}
+  constructor(private carService: CarsService) {}
 
   ngOnInit(): void {
         console.log(this.car);
@@ -30,5 +31,14 @@ export class EditCarModalComponent implements OnInit {
     setTimeout(() => {
       this.close.emit();
     }, 300);
+  }
+
+  deleteFromPlatform(patent: string | undefined, platform: string) {
+    if (!patent) return;
+
+    if (confirm(`Esta seguro que desea quitar este auto de ${platform}?`)) {
+      this.carService.deleteFromPlatform(patent, platform);
+      alert(`Auto quitado de ${platform} con exito`);
+    }
   }
 }

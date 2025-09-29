@@ -1,6 +1,7 @@
 [
     {
         "patent": "ABC 123",
+        "status":"disponible",
         "make": "Chevrolet",
         "model": "Corsa",
         "year": 2015,
@@ -28,6 +29,7 @@
     },
     {
         "patent": "KAC 931",
+        "status":"reservado",
         "make": "Chevrolet",
         "model": "Corsa",
         "year": 2015,
@@ -55,6 +57,7 @@
     },
     {
         "patent": "IKS 123",
+        "status":"vendido",
         "make": "Chevrolet",
         "model": "Corsa",
         "year": 2015,

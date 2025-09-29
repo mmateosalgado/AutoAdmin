@@ -23,6 +23,28 @@
   display: block;
 }
 
+.status{
+  border-radius: 999px;
+  padding: 6px 8px;
+  font-size: 12px;
+  border: 1px solid rgba(15, 23, 42, 0.04);
+  color: #92400e;
+}
+
+.status.disponible{
+  background: #d1fae5;
+  color: #065f46;
+}
+
+.status.reservado{
+  background: #fef3c7;
+  color: #92400e;
+}
+
+.status.vendido{
+  background: #fee2e2;
+  color: #b91c1c;
+}
 /* badges top-right */
 .badges {
   position: absolute;
