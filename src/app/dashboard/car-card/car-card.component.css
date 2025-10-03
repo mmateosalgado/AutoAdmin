@@ -232,5 +232,8 @@
   background:#b4530933 ;
 }
 
+.btn-pub.web:hover{
+  background:#65656533 ;
+}
 
 /* responsive card width handled by list */
