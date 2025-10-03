@@ -1,43 +1,55 @@
 .filters-bar {
   display: flex;
-  gap: 10px;
+  flex-wrap: wrap;
+  gap: 12px;
   align-items: center;
   margin: 12px 0;
-  width: 100%; /* ocupa todo el ancho del contenedor padre */
+  width: 100%;
 }
 
-.search {
-  flex: 1;       /* ocupa todo el espacio posible */
-  display: flex;
-  align-items: center;
+.filters-grid {
+  flex: 1;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
   gap: 10px;
-  background: #fff;
-  border-radius: 10px;
-  padding: 8px 12px;
-  border: 1px solid rgba(15,23,42,0.06);
-  box-shadow: 0 6px 10px rgba(2,6,23,0.03);
-  min-width: 0;   /* crucial para que el input se encoja correctamente */
+  width: 100%;
 }
 
-.search input {
-  border: none;
-  outline: none;
+.filters-grid input,
+.filters-grid select {
+  background: #fff;
+  border: 1px solid rgba(15,23,42,0.1);
+  border-radius: 8px;
+  padding: 8px 10px;
   font-size: 14px;
-  width: 100%;   /* ocupa todo el espacio dentro de .search */
+  box-shadow: 0 2px 6px rgba(2,6,23,0.03);
+  outline: none;
+}
+
+.filters-grid input:focus,
+.filters-grid select:focus {
+  border-color: #3b82f6; /* azul */
+  box-shadow: 0 0 0 2px rgba(59,130,246,0.2);
 }
 
 .btn-filter {
-  flex-shrink: 0; /* evita que el botón se reduzca */
-  background: white;
-  border: 1px solid rgba(15,23,42,0.08);
-  border-radius: 10px;
-  padding: 9px 12px;
-  font-weight: 700;
+  flex-shrink: 0;
+  background: #3b82f6;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 9px 16px;
+  font-weight: 600;
   cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.btn-filter:hover {
+  background: #2563eb;
 }
 
 /* mobile */
-@media (max-width: 480px) {
+@media (max-width: 640px) {
   .filters-bar {
     flex-direction: column;
     align-items: stretch;
@@ -46,3 +58,5 @@
     width: 100%;
   }
 }
+
+

@@ -61,13 +61,16 @@ export class CarsService {
         let totalFb = 0;
 
         for (const car of cars) {
-          totalPrice += car.price;
 
-          if (car.publishStatus?.some(p => p.platform === 'ML' && p.status === 'enabled')) {
-            totalMeli++;
-          }
-          if (car.publishStatus?.some(p => p.platform === 'FB' && p.status === 'enabled')) {
-            totalFb++;
+          if (car.status !== "vendido") {
+            totalPrice += car.price;
+
+            if (car.publishStatus?.some(p => p.platform === 'ML' && p.status === 'enabled')) {
+              totalMeli++;
+            }
+            if (car.publishStatus?.some(p => p.platform === 'FB' && p.status === 'enabled')) {
+              totalFb++;
+            }
           }
         }
 
