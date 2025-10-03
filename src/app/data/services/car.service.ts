@@ -97,20 +97,14 @@ export class CarsService {
     }
   }
 
-  deleteFromPlatform(patent: string, platform: string) {
-    const carIndex = this.cars.findIndex(car => car.patent === patent);
-    if (carIndex !== -1) {
-      const car = this.cars[carIndex];
-      if (!car.publishStatus) {
-        return; // No hay nada que eliminar
-      }
-      const fbStatus = car.publishStatus.find(p => p.platform === platform);
-      if (fbStatus) {
-        fbStatus.status = 'disabled';
-        this.cars[carIndex] = car;
-        localStorage.setItem('cars', JSON.stringify(this.cars));
-        this.carsSubject.next([...this.cars]);
-      }
+  updateCar(updatedCar: Car): void {
+    const index = this.cars.findIndex(c => c.patent === updatedCar.patent);
+    console.log('Updating car:', updatedCar);
+    console.log('Found index:', index);
+    if (index !== -1) {
+      this.cars[index] = { ...updatedCar };  // sobreescribimos con lo nuevo
+      localStorage.setItem('cars', JSON.stringify(this.cars));
+      this.carsSubject.next([...this.cars]); // notifica cambios a todos los subscriptores
     }
   }
 }

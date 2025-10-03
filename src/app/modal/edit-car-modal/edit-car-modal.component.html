@@ -1,4 +1,3 @@
-<!-- edit-car-modal.component.html -->
 <div class="modal" [class.closing]="isClosing" role="dialog" aria-modal="true" aria-labelledby="editCarTitle">
   <div class="modal-content">
     <button (click)="onClose()" class="modal-close" aria-label="Cerrar modal">&times;</button>
@@ -6,16 +5,16 @@
     <h2 id="editCarTitle">Editar Auto</h2>
     <p class="modal-sub">Modifica los datos del auto</p>
 
-    <form class="car-form" novalidate onsubmit="return false;">
+    <form class="car-form" (ngSubmit)="onSave()" novalidate>
       <!-- fila 1: marca / modelo -->
       <div class="row">
         <div class="field">
           <label for="marca">Marca</label>
-          <input id="marca" type="text" value={{car?.make}} />
+          <input id="marca" type="text" [(ngModel)]="editedCar.make" name="make" />
         </div>
         <div class="field">
           <label for="modelo">Modelo</label>
-          <input id="modelo" type="text" value={{car?.model}} />
+          <input id="modelo" type="text" [(ngModel)]="editedCar.model" name="model" />
         </div>
         <div class="spacer"></div>
       </div>
@@ -24,15 +23,15 @@
       <div class="row">
         <div class="field">
           <label for="anio">Año</label>
-          <input id="anio" type="number" value={{car?.year}} />
+          <input id="anio" type="number" [(ngModel)]="editedCar.year" name="year" />
         </div>
         <div class="field">
           <label for="precio">Precio ($)</label>
-          <input id="precio" type="number" value={{car?.price}} />
+          <input id="precio" type="number" [(ngModel)]="editedCar.price" name="price" />
         </div>
         <div class="field">
           <label for="km">Kilometraje</label>
-          <input id="km" type="number" value={{car?.kilometers}} />
+          <input id="km" type="number" [(ngModel)]="editedCar.kilometers" name="kilometers" />
         </div>
       </div>
 
@@ -40,76 +39,58 @@
       <div class="row">
         <div class="field">
           <label for="combustible">Combustible</label>
-          <select id="combustible">
-            <option [selected]="car?.fuel === 'Gasoline'">Gasoline</option>
-            <option [selected]="car?.fuel === 'Diesel'">Diesel</option>
-            <option [selected]="car?.fuel === 'GNC'">GNC</option>
+          <select id="combustible" [(ngModel)]="editedCar.fuel" name="fuel">
+            <option value="Gasoline">Gasoline</option>
+            <option value="Diesel">Diesel</option>
+            <option value="GNC">GNC</option>
           </select>
         </div>
         <div class="field">
           <label for="transmision">Transmisión</label>
-          <select id="transmision">
-            <option [selected]="car?.transmission === 'Manual'">Manual</option>
-            <option [selected]="car?.transmission === 'Automática'">Automática</option>
+          <select id="transmision" [(ngModel)]="editedCar.transmission" name="transmission">
+            <option value="Manual">Manual</option>
+            <option value="Automática">Automática</option>
           </select>
         </div>
         <div class="field">
           <label for="color">Color</label>
-          <input id="color" type="text" value={{car?.color}} />
+          <input id="color" type="text" [(ngModel)]="editedCar.color" name="color" />
         </div>
       </div>
 
       <!-- descripcion -->
       <div class="field">
         <label for="descripcion">Descripción</label>
-        <textarea id="descripcion" rows="3">{{car?.description}}</textarea>
+        <textarea id="descripcion" rows="3" [(ngModel)]="editedCar.description" name="description"></textarea>
       </div>
 
-      <!-- imagenes -->
-      <div class="field images-upload">
-        <label>Imágenes</label>
-
-        <!-- imágenes existentes -->
-        <div class="existing-images">
-          @if (car?.image) {
-          <div class="image-wrapper">
-            <img [src]="car?.image" alt="Auto" />
-            <button type="button" class="btn-delete">✖</button>
-          </div>
-          }
-        </div>
-        <!-- subir nuevas imágenes -->
-        <div class="upload-drop" aria-hidden="true">
-          <button type="button" class="btn-upload">📤 Subir Imágenes</button>
-          <input type="file" #fileInput multiple hidden />
-          <div class="upload-hint">Selecciona múltiples imágenes del auto</div>
-        </div>
-      </div>
+      <!-- estado de publicación -->
       <!-- estado de publicación -->
       <div class="field publish-status">
         <label>Estado de publicación</label>
         <div class="publish-list">
-          @if (car?.publishStatus?.length) {
-          <div class="publish-grid">
-            @for (pub of car?.publishStatus; track pub.platform) {
-            <div class="publish-card" [class.disabled]="pub.status !== 'enabled'">
-              <div class="publish-info">
-                <span class="platform">{{ pub.platform }}</span>
-                <span class="status" [class.enabled]="pub.status === 'enabled'">
-                  {{ pub.status === 'enabled' ? 'Publicado' : 'No publicado' }}
-                </span>
+          <ng-container *ngIf="editedCar?.publishStatus?.length; else noPublish">
+            <div class="publish-grid">
+              <div class="publish-card" *ngFor="let pub of editedCar.publishStatus"
+                [class.disabled]="pub.status !== 'enabled'">
+                <div class="publish-info">
+                  <span class="platform">{{ pub.platform }}</span>
+                  <span class="status" [class.enabled]="pub.status === 'enabled'">
+                    {{ pub.status === 'enabled' ? 'Publicado' : 'No publicado' }}
+                  </span>
+                </div>
+                @if(pub.status === 'enabled') {
+                <button (click)="pub.status = 'disabled'" type="button"
+                  class="btn-unpublish">
+                  Quitar de {{ pub.platform }}
+                </button>
+                }
               </div>
-              @if (pub.status === 'enabled') {
-              <button (click)="deleteFromPlatform(car?.patent,pub.platform)" type="button" class="btn-unpublish">
-                Quitar de {{ pub.platform }}
-              </button>
-              }
             </div>
-            }
-          </div>
-          } @else {
-          <p class="no-publish">No está publicado en ninguna plataforma.</p>
-          }
+          </ng-container>
+          <ng-template #noPublish>
+            <p class="no-publish">No está publicado en ninguna plataforma.</p>
+          </ng-template>
         </div>
       </div>
       <!-- acciones -->

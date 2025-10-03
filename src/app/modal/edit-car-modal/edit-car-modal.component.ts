@@ -1,44 +1,45 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, inject, Input, OnInit, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, inject, Input, Output } from '@angular/core';
+import { FormsModule } from '@angular/forms';   // 👈 IMPORTAR
+import { CommonModule } from '@angular/common';
 import { CarsService } from '../../data/services/car.service';
 
 @Component({
   selector: 'app-edit-car-modal',
+  standalone: true,             
+  imports: [CommonModule, FormsModule],
   templateUrl: './edit-car-modal.component.html',
-  styleUrls: ['./edit-car-modal.component.css'], // <-- corregido
+  styleUrls: ['./edit-car-modal.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class EditCarModalComponent implements OnInit {
-  @Input() car: Car | null = null;
+export class EditCarModalComponent {
+  @Input() car: Car | undefined;
   @Output() close = new EventEmitter<void>();
-  isClosing = false;
 
-  constructor(private carService: CarsService) {}
+  CarService:CarsService = inject(CarsService);
+
+
+  isClosing = false;
+  editedCar!: Car;
 
   ngOnInit(): void {
-        console.log(this.car);
+    if (this.car) {
+      this.editedCar = { ...this.car };
+    }
   }
 
-  // no emitimos acá directo, sólo iniciamos la animación
+  onSave() {
+    if (!this.editedCar) return;
+    this.CarService.updateCar(this.editedCar);
+    this.startClose();
+  }
+
   onClose() {
     this.startClose();
   }
 
-  startClose() {
-    if (this.isClosing) return; // evita dobles clicks
+  private startClose() {
+    if (this.isClosing) return;
     this.isClosing = true;
-
-    // espera el mismo tiempo que la animación CSS
-    setTimeout(() => {
-      this.close.emit();
-    }, 300);
-  }
-
-  deleteFromPlatform(patent: string | undefined, platform: string) {
-    if (!patent) return;
-
-    if (confirm(`Esta seguro que desea quitar este auto de ${platform}?`)) {
-      this.carService.deleteFromPlatform(patent, platform);
-      alert(`Auto quitado de ${platform} con exito`);
-    }
+    setTimeout(() => this.close.emit(), 300);
   }
 }

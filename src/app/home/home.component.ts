@@ -17,7 +17,7 @@ import { EditCarModalComponent } from '../modal/edit-car-modal/edit-car-modal.co
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HomeComponent {
-  carToEdit: Car | null = null;
+  carToEdit: Car | undefined;
   showAddCarModal = false;
   showEditCarModal = false;
   countData: CountData | null = null;
