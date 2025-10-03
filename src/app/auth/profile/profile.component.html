@@ -1,0 +1,72 @@
+<app-header [showAddCar]="false"></app-header>
+
+<section class="profile-page">
+    <header class="page-header">
+        <h1 class="page-title">Mi perfil</h1>
+    </header>
+
+
+    <form [formGroup]="profileForm" (ngSubmit)="onSave()" class="profile-card card">
+        <div class="card-grid">
+            <div class="card-col">
+                <div class="form-row">
+                    <label class="label">Nombre</label>
+                    <input class="input" formControlName="name" placeholder="Tu nombre completo" aria-label="Nombre" />
+                </div>
+
+
+                <div class="form-row">
+                    <label class="label">Email</label>
+                    <input class="input" formControlName="email" placeholder="correo@ejemplo.com" type="email"
+                        aria-label="Email" />
+                </div>
+
+
+                <div class="form-row">
+                    <label class="label">Contraseña</label>
+                    <div class="password-row">
+                        <input class="input" formControlName="password" [type]="showPassword ? 'text' : 'password'"
+                            placeholder="••••••••" aria-label="Contraseña" />
+                        <button type="button" class="btn btn-ghost" (click)="togglePasswordVisibility()">👁</button>
+                    </div>
+                    <small class="hint">Dejar en blanco para mantener la contraseña actual.</small>
+                </div>
+
+
+                <div class="form-row">
+                    <label class="label">Página web (no editable)</label>
+                    <input class="input readonly" formControlName="website" readonly />
+                </div>
+            </div>
+
+
+            <div class="card-col">
+                <h2 class="section-title">Cuentas externas</h2>
+                @for (service of socialServices; track $index) {
+                <div class="service-card">
+                    <h3 class="service-title">{{ service.name }}</h3>
+                    <div class="form-row">
+                        <label class="label">Usuario</label>
+                        <!-- [formControl]="profileForm.get('accounts.' + service.key + '.username')" -->
+                        <input class="input" 
+                            placeholder="{{ service.usernamePlaceholder }}" />
+                    </div>
+                    <div class="form-row">
+                        <label class="label">Contraseña</label>
+                        <!--  [formControl]="profileForm.get('accounts.' + service.key + '.password')" -->
+                        <input class="input" type="password"
+                           
+                            placeholder="••••••" />
+                    </div>
+                </div>
+                }
+            </div>
+        </div>
+
+
+        <footer class="card-actions">
+            <button type="submit" class="btn btn-primary" [disabled]="profileForm.invalid">Guardar cambios</button>
+            <button type="button" class="btn" (click)="onReset()">Cancelar</button>
+        </footer>
+    </form>
+</section>
