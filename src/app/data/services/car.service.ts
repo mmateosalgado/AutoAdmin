@@ -59,6 +59,7 @@ export class CarsService {
         let totalPrice = 0;
         let totalMeli = 0;
         let totalFb = 0;
+        let totalWeb = 0;
 
         for (const car of cars) {
 
@@ -71,12 +72,16 @@ export class CarsService {
             if (car.publishStatus?.some(p => p.platform === 'FB' && p.status === 'enabled')) {
               totalFb++;
             }
+
+            if (car.publishStatus?.some(p => p.platform === 'WEB' && p.status === 'enabled')) {
+              totalWeb++;
+            }
           }
         }
 
         const totalCars = cars.length;
 
-        return { totalPrice, totalMeli, totalFb, totalCars };
+        return { totalPrice, totalMeli, totalFb, totalWeb, totalCars };
       })
     );
   }
