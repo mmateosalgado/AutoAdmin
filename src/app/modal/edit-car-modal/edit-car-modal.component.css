@@ -191,7 +191,7 @@
 
 /* responsive: pasar a una columna en pantallas pequeñas */
 @media (max-width: 720px) {
-  .modal-content { padding: 18px; max-width: 96%; max-height: 96vh; }
+  .modal-content { padding: 18px; max-width: 96%; max-height: 90%; }
   .row { grid-template-columns: 1fr; }
   .actions { flex-direction: column; align-items: stretch; }
   .btn-save, .btn-cancel { width: 100%; }

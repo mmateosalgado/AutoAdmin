@@ -66,15 +66,17 @@ app-header {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  padding: 10px 16px;
   border-radius: 8px;
-  background: #374151; /* gris oscuro */
+  background: #374151;
   color: #ffffff;
   font-weight: 600;
   font-size: 14px;
   border: none;
   cursor: pointer;
   transition: background 0.2s ease, transform 0.1s ease;
+  position: fixed; right: 18px; bottom: 18px; 
+  padding:8px 12px; 
+  box-shadow:0 6px 14px rgba(2,6,23,0.12);
 }
 
 .logout-btn svg {
@@ -100,12 +102,6 @@ app-header {
 :host { display:block; min-height:100vh; background:#f3f7f9; color:#0f172a; font-family:Inter, system-ui, -apple-system, "Segoe UI", Roboto, Arial; }
 .app-main { padding: 18px; }
 .container { max-width: 1200px; margin: 0 auto; display:flex; flex-direction:column; gap:14px; }
-
-/* floating logout like design */
-.logout-btn {
-  position: fixed; right: 18px; bottom: 18px;
-  background: #374151; color:white; border:none; padding:8px 12px; border-radius:8px; box-shadow:0 6px 14px rgba(2,6,23,0.12);
-}
 
 /* small layout tweak to make header + content spacing match figma */
 .controls-row {  gap:12px; align-items:center; width: 100%; }

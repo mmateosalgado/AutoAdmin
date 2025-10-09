@@ -102,8 +102,8 @@
 
 @media (max-width: 720px) {
   .add-sidebar {
-    width: 100%;
-    max-width: 100%; /* fuerza que use todo el ancho en mobile */
+    width: 90%;
+    max-width: 90%; /* fuerza que use todo el ancho en mobile */
   }
   .row { grid-template-columns: 1fr; }
   .actions { flex-direction: column; }
