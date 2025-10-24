@@ -13,7 +13,7 @@ import { EditCarModalComponent } from '../modal/edit-car-modal/edit-car-modal.co
   selector: 'app-home',
   imports: [HeaderComponent,StatsCardsComponent,FiltersBarComponent,CarListComponent,AddCarModalComponent,CommonModule,EditCarModalComponent],
   templateUrl: './home.component.html',
-  styleUrl: './home.component.css',
+  styleUrl: './home.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HomeComponent {
@@ -28,7 +28,7 @@ export class HomeComponent {
     this.showAddCarModal = true;
   }
 
-  openEditCarModal(Car: Car) { 
+  openEditCarModal(Car: Car) {
     this.showEditCarModal = true;
     this.carToEdit = Car;
   }

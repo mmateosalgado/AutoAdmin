@@ -7,7 +7,7 @@ import { AsyncPipe, CommonModule } from '@angular/common';
   selector: 'app-stats-cards',
   imports: [AsyncPipe, CommonModule],
   templateUrl: './stats-cards.component.html',
-  styleUrls: ['./stats-cards.component.css'],
+  styleUrls: ['./stats-cards.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class StatsCardsComponent {

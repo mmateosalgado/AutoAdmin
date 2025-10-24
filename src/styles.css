@@ -1,5 +1,5 @@
-/* You can add global styles to this file, and also import other style files */
-:root {
-  --bg-color: #f5f5f5;
-  --text-color: #222;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }

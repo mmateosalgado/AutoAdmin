@@ -1,4 +1,6 @@
-<div class="stats-cards" *ngIf="countData$ | async as countData">
+<!DOCTYPE html>
+@if (countData$ | async; as countData) {
+<div class="stats-cards">
   <div class="stat-card">
     <div class="stat-label">Total de Autos</div>
     <div class="stat-value">{{ countData.totalCars }}</div>
@@ -24,3 +26,4 @@
     <div class="stat-value colored green">${{ countData.totalPrice }}</div>
   </div>
 </div>
+}

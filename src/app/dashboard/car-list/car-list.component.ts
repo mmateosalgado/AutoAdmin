@@ -9,10 +9,10 @@ import { AsyncPipe } from '@angular/common';
   selector: 'app-car-list',
   imports: [CarCardComponent, EmptyStateComponent,AsyncPipe],
   templateUrl: './car-list.component.html',
-  styleUrl: './car-list.component.css',
+  styleUrl: './car-list.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class CarListComponent { 
+export class CarListComponent {
   @Output() outputCar = new EventEmitter<Car>();
   @Output() close = new EventEmitter<void>();
   @Output() countList = new EventEmitter<number>();

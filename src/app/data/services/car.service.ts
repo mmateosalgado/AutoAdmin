@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import cars from "C:/Users/Usuario/AutoAdmin/src/app/temp-data/autos.json";
+import cars from "../../temp-data/autos.json";
 
 @Injectable({ providedIn: 'root' })
 export class CarsService {

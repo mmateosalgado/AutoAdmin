@@ -4,12 +4,12 @@ import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from 
   selector: 'app-header',
   imports: [],
   templateUrl: './header.component.html',
-  styleUrl: './header.component.css',
+  styleUrl: './header.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class HeaderComponent {   
+export class HeaderComponent {
   @Output() addCar = new EventEmitter<void>();
-  @Input() showAddCar: boolean = false; 
+  @Input() showAddCar: boolean = false;
 
   onAddCar() {
     this.addCar.emit();
