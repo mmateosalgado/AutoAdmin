@@ -16,7 +16,6 @@
           <label for="modelo">Modelo</label>
           <input id="modelo" type="text" [(ngModel)]="editedCar.model" name="model" />
         </div>
-        <div class="spacer"></div>
       </div>
 
       <!-- fila 2: año / precio / kilometraje -->
@@ -60,42 +59,40 @@
         </div>
       </div>
 
-      <!-- descripcion -->
-      <div class="field">
-        <label for="descripcion">Descripción</label>
-        <textarea id="descripcion" rows="3" [(ngModel)]="editedCar.description" name="description"></textarea>
+      <div class="row">
+        <div class="field">
+          <label for="descripcion">Descripción</label>
+          <textarea id="descripcion" rows="3" [(ngModel)]="editedCar.description" name="description"></textarea>
+        </div>
       </div>
 
-      <!-- estado de publicación -->
-      <!-- estado de publicación -->
       <div class="field publish-status">
         <label>Estado de publicación</label>
         <div class="publish-list">
-          <ng-container *ngIf="editedCar?.publishStatus?.length; else noPublish">
-            <div class="publish-grid">
-              <div class="publish-card" *ngFor="let pub of editedCar.publishStatus"
-                [class.disabled]="pub.status !== 'enabled'">
-                <div class="publish-info">
-                  <span class="platform">{{ pub.platform }}</span>
-                  <span class="status" [class.enabled]="pub.status === 'enabled'">
-                    {{ pub.status === 'enabled' ? 'Publicado' : 'No publicado' }}
-                  </span>
-                </div>
-                @if(pub.status === 'enabled') {
-                <button (click)="pub.status = 'disabled'" type="button"
-                  class="btn-unpublish">
-                  Quitar de {{ pub.platform }}
-                </button>
-                }
+          @if (editedCar.publishStatus && editedCar.publishStatus.length > 0) {
+          <div class="publish-grid">
+            @for (pub of editedCar.publishStatus; track pub.platform) {
+            <div class="publish-card" [class.disabled]="pub.status !== 'enabled'">
+              <div class="publish-info">
+                <span class="platform">{{ pub.platform }}</span>
+                <span class="status" [class.enabled]="pub.status === 'enabled'">
+                  {{ pub.status === 'enabled' ? 'Publicado' : 'No publicado' }}
+                </span>
               </div>
+
+              @if (pub.status === 'enabled') {
+              <button (click)="pub.status = 'disabled'" type="button" class="btn-unpublish">
+                Quitar de {{ pub.platform }}
+              </button>
+              }
             </div>
-          </ng-container>
-          <ng-template #noPublish>
-            <p class="no-publish">No está publicado en ninguna plataforma.</p>
-          </ng-template>
+            }
+          </div>
+          } @else {
+          <p class="no-publish">No está publicado en ninguna plataforma.</p>
+          }
         </div>
       </div>
-      <!-- acciones -->
       <div class="actions">
         <button type="submit" class="btn-save">Actualizar Auto</button>
         <button (click)="onClose()" type="button" class="btn-cancel">Cancelar</button>

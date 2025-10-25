@@ -1,20 +1,6 @@
 .car-list {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 18px;
-  margin-top: 6px;
-}
-
-/* each grid cell keeps cards same size */
-.card-wrap { display:block; }
-
-@media (max-width: 1100px) {
-  .car-list { grid-template-columns: repeat(2, 1fr); }
-}
-@media (max-width: 720px) {
-  .car-list { grid-template-columns: 1fr; }
-}
-
-app-empty-state {
-  grid-column: 1 / -1; /* ocupa todas las columnas del grid */
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
 }

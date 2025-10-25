@@ -6,7 +6,7 @@ import { CarsService } from '../../data/services/car.service';
   selector: 'app-add-car-modal',
   imports: [ReactiveFormsModule],
   templateUrl: './add-car-modal.component.html',
-  styleUrls: ['./add-car-modal.component.css'],
+  styleUrls: ['./add-car-modal.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AddCarModalComponent {

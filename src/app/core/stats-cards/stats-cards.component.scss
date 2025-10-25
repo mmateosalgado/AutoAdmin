@@ -16,17 +16,17 @@
     padding: 1rem 1.5rem;
     margin: 0.5rem;
     width: 200px;
-    box-shadow: 0 6px 12px rgba(2, 6, 23, 0.04);
-    cursor: pointer;
+    box-shadow: 0 6px 12px rgba($quinary-color, 0.1);
+/*     cursor: pointer;
     transition: all 0.3s ease-in-out;
 
     &:hover {
       transform: translateY(-4px);
-      box-shadow: 0 10px 20px rgba(2, 6, 23, 0.342);
-    }
+      box-shadow: 0 10px 20px rgba($quinary-color, 0.342);
+    } */
 
     .stat-label {
-      font-size: 13px;
+      font-size: $font-size-xsmall;
       color: $color-text-secondary;
       margin-bottom: 0.5rem;
       font-weight: $font-weight-medium;
@@ -42,18 +42,18 @@
 
   /* colores por tipo */
   .stat-value.colored.blue {
-    color: #1e40af;
+    color: $market-place-color;
   }
 
   .stat-value.colored.orange {
-    color: #b45309;
+    color: $mercado-libre-color;
   }
 
   .stat-value.colored.green {
-    color: #059669;
+    color: $amazon-color;
   }
 
   .stat-value.colored.black {
-    color: #535353;
+    color: $ebay-color;
   }
 }

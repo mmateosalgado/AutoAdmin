@@ -1,0 +1,92 @@
+@use '../../styles/variables' as *;
+@use 'sass:color';
+
+.filters-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1rem;
+  margin: 1rem 0;
+  width: 100%;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+
+    .btn-filter {
+      width: 100%;
+    }
+  }
+
+  .filters-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 1rem;
+    flex: 1;
+    width: 100%;
+
+    @media (max-width: 768px) {
+      grid-template-columns: repeat(auto-fit, minmax(100%, 1fr));
+    }
+
+    input,
+    select {
+      border: 1px solid rgba($border-color, 0.3);
+      border-radius: 8px;
+      padding: 8px 10px;
+      font-size: $font-size-normal;
+      box-shadow: 0 2px 6px rgba($primary-color, 0.08);
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
+      color: $color-text;
+      background: $secondary-color;
+
+      &:focus {
+        border-color: $color-button;
+        box-shadow: 0 0 0 2px rgba($color-button, 0.2);
+        background: $primary-color;
+      }
+
+      &:hover {
+        border-color: $color-hover-primary;
+      }
+    }
+
+    select {
+      appearance: none;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      background-image: url('data:image/svg+xml;utf8,<svg fill="%23155DFC" height="20" viewBox="0 0 24 24" width="20" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/></svg>');
+      background-repeat: no-repeat;
+      background-position: right 10px center;
+      background-size: 20px 20px;
+      padding-right: 2.5rem;
+      color: $color-text;
+
+      &:focus {
+        outline: none;
+        border-color: $color-button;
+        background: $primary-color;
+      }
+
+      .inv_opt {
+        color: $color-text-secondary;
+        background: $secondary-color;
+      }
+    }
+  }
+
+  .btn-filter {
+    background: $color-button;
+    color: $color-white;
+    border: none;
+    border-radius: 0.5rem;
+    padding: 0.5rem 1rem;
+    font-weight: $font-weight-medium;
+    cursor: pointer;
+    transition: background 0.2s ease-in-out;
+
+    &:hover {
+      background: color.adjust($color-button, $lightness: -20%);
+    }
+  }
+}

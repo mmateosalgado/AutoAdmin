@@ -1,0 +1,36 @@
+@use '../styles/variables' as *;
+@use 'sass:color';
+
+.logout-container {
+  .logout-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: .5rem;
+    border-radius: 1rem;
+    background: $color-text;
+    color: $color-white;
+    font-weight: $font-weight-medium;
+    font-size: $font-size-normal;
+    border: none;
+    cursor: pointer;
+    transition: background 0.2s ease, transform 0.1s ease;
+    position: fixed;
+    right: 18px;
+    bottom: 18px;
+    padding: 8px 12px;
+    box-shadow: 0 6px 14px rgba(2, 6, 23, 0.12);
+
+    svg {
+      color: inherit;
+    }
+
+    &:hover {
+      background: color.adjust($color-text, $lightness: 5%);
+      transform: translateY(-1px);
+    }
+
+    &:active {
+      transform: translateY(1px);
+    }
+  }
+}

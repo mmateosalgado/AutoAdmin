@@ -4,7 +4,7 @@ import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from 
   selector: 'app-header',
   imports: [],
   templateUrl: './header.component.html',
-  styleUrl: './header.component.scss',
+  styleUrls: ['./header.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HeaderComponent {

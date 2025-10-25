@@ -5,13 +5,12 @@ import { FiltersBarComponent } from '../core/filters-bar/filters-bar.component';
 import { CarListComponent } from '../dashboard/car-list/car-list.component';
 import { AddCarModalComponent } from '../modal/add-car-modal/add-car-modal.component';
 import { CommonModule } from '@angular/common';
-import { AuthService } from '../auth/services/auth.service';
-import { Router } from '@angular/router';
 import { EditCarModalComponent } from '../modal/edit-car-modal/edit-car-modal.component';
+import { LogoutButtonComponent } from "../logout-button/logout-button.component";
 
 @Component({
   selector: 'app-home',
-  imports: [HeaderComponent,StatsCardsComponent,FiltersBarComponent,CarListComponent,AddCarModalComponent,CommonModule,EditCarModalComponent],
+  imports: [HeaderComponent, StatsCardsComponent, FiltersBarComponent, CarListComponent, AddCarModalComponent, CommonModule, EditCarModalComponent, LogoutButtonComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -21,8 +20,6 @@ export class HomeComponent {
   showAddCarModal = false;
   showEditCarModal = false;
   countData: CountData | null = null;
-
-  constructor(private authService: AuthService, private router: Router) {}
 
   openAddCarModal() {
     this.showAddCarModal = true;
@@ -41,8 +38,4 @@ export class HomeComponent {
     this.showEditCarModal = false;
   }
 
-  logout() {
-    this.authService.logout();
-    this.router.navigate(['/login']);
-  }
 }
