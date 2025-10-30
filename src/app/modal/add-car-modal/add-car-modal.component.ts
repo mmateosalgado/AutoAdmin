@@ -36,6 +36,7 @@ export class AddCarModalComponent {
   addCar() {
     if (this.carForm.valid) {
       this.car = this.carForm.value;
+      this.car.status = 'disponible';
 
       const added = this.carService.addCar(this.car);
 
