@@ -1,0 +1,123 @@
+@use '../../styles/variables' as *;
+
+.page-login {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background: $primary-color;
+  padding: 2rem;
+  box-sizing: border-box;
+
+  .login-card {
+    width: 420px;
+    max-width: 100%;
+    border-radius: 1rem;
+    background: $secondary-color;
+    padding: 36px 32px;
+    box-shadow: 0 6px 18px rgba(15, 23, 42, 0.08);
+    border: 1px solid rgba($border-color, 0.06);
+    text-align: center;
+
+    .logo-circle {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      background: $tertiary-color;
+      margin: 0 auto 12px;
+    }
+
+    .loginTitle {
+      font-size: $font-size-xxlarge;
+      margin: 0;
+      font-weight: $font-weight-extra-bold;
+      color: $color-text;
+    }
+
+    .subtitle {
+      margin: 10px auto 20px;
+      color: $color-text-secondary;
+      font-size: $font-size-small;
+      line-height: 1.4;
+      max-width: 320px;
+    }
+
+    .login-form {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      width: 100%;
+
+      .field {
+        text-align: left;
+
+        label {
+          display: block;
+          margin-bottom: 6px;
+          font-size: 13px;
+          color: #374151;
+          font-weight: 600;
+        }
+
+        input[type="text"],
+        input[type="password"] {
+          width: 100%;
+          padding: 12px 14px;
+          border-radius: .5rem;
+          border: 1px solid rgba($border-color, 0.2);
+          font-size: $font-size-normal;
+          box-sizing: border-box;
+          outline: none;
+          box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.6);
+        }
+
+        input::placeholder {
+          color: $color-muted;
+        }
+
+        input:focus {
+          border-color: $color-button;
+          box-shadow: 0 0 0 6px rgba(37, 99, 235, 0.06);
+        }
+      }
+
+      .btn-primary {
+        margin-top: 6px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: .5rem;
+        width: 100%;
+        padding: 12px 14px;
+        border-radius: 1rem;
+        border: none;
+        background: $color-button;
+        color: $color-white;
+        font-weight: $font-weight-bold;
+        font-size: $font-size-normal;
+        cursor: pointer;
+        box-shadow: 0 6px 10px rgba(37, 99, 235, 0.12);
+
+        &:active {
+          transform: translateY(1px);
+          box-shadow: 0 4px 8px rgba(37, 99, 235, 0.12);
+        }
+      }
+    }
+
+    .error {
+      margin-top: 12px;
+      color: $color-error;
+      font-size: $font-size-normal;
+    }
+
+    .hint {
+      margin-top: 12px;
+      font-size: $font-size-normal;
+      color: $color-text-secondary;
+    }
+  }
+}

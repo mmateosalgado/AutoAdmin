@@ -1,46 +1,24 @@
 <app-header (addCar)="openAddCarModal()" [showAddCar]="true"></app-header>
 
 <main class="app-main">
-  <div class="container">
     <app-stats-cards></app-stats-cards>
 
-    <div class="controls-row">
-      <app-filters-bar></app-filters-bar>
-    </div>
+    <app-filters-bar></app-filters-bar>
 
     <!-- Si no hay autos -->
     <!-- <app-empty-state></app-empty-state> -->
 
     <!-- Si hay autos -->
     <app-car-list (outputCar)="openEditCarModal($event)"></app-car-list>
-  </div>
 </main>
 
-<!-- montados (ocultos por defecto) -->
 @if (showAddCarModal) {
-    <app-add-car-modal  
-      (close)="closeAddCarModal()">
-    </app-add-car-modal>
+<app-add-car-modal (close)="closeAddCarModal()">
+</app-add-car-modal>
 }
 @if (showEditCarModal) {
-    <app-edit-car-modal
-    (close)="closeEditCarModal()"
-    [car]="carToEdit">
-    </app-edit-car-modal>
+<app-edit-car-modal (close)="closeEditCarModal()" [car]="carToEdit">
+</app-edit-car-modal>
 }
 
-<div class="logout-container">
-  <button class="logout-btn" (click)="logout()">
-    <!-- ícono logout -->
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" 
-         xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-      <path d="M15 3H21V21H15" stroke="currentColor" stroke-width="1.5"
-            stroke-linecap="round" stroke-linejoin="round"/>
-      <path d="M10 17L15 12L10 7" stroke="currentColor" stroke-width="1.5"
-            stroke-linecap="round" stroke-linejoin="round"/>
-      <path d="M3 12H15" stroke="currentColor" stroke-width="1.5"
-            stroke-linecap="round" stroke-linejoin="round"/>
-    </svg>
-    <span>Cerrar Sesión</span>
-  </button>
-</div>
+<app-logout-button></app-logout-button>

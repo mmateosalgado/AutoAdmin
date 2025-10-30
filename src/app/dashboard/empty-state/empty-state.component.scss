@@ -1,0 +1,36 @@
+@use '../../styles/variables' as *;
+
+.empty-card {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: $color-white;
+  border-radius: 1rem;
+  padding: 48px 24px;
+  border: 1px solid rgba(15, 23, 42, 0.06);
+  box-shadow: 0 6px 12px rgba(2, 6, 23, 0.03);
+  margin-top: 1rem;
+  width: 100%;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+
+  .empty-inner {
+    text-align: center;
+    color: $color-text-secondary;
+
+    h3 {
+      margin-top: 12px;
+      margin-bottom: 6px;
+      color: $color-text;
+      font-size: $font-size-medium-large;
+      font-weight: $font-weight-bold;
+    }
+
+    p {
+      margin: 0;
+      font-size: $font-size-small;
+      color: $color-text-tertiary;
+    }
+  }
+}

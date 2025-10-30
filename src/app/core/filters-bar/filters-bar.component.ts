@@ -4,7 +4,7 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
   selector: 'app-filters-bar',
   imports: [],
   templateUrl: './filters-bar.component.html',
-  styleUrl: './filters-bar.component.css',
+  styleUrl: './filters-bar.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FiltersBarComponent { }

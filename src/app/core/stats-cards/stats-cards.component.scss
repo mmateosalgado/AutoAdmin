@@ -1,0 +1,12 @@
+@use '../../styles/variables' as *;
+
+.stats-cards {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  width: 100%;
+  gap: 1rem;
+  margin: 1rem;
+  overflow-x: auto;
+  white-space: nowrap;
+}

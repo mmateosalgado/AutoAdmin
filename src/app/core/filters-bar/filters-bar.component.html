@@ -2,7 +2,7 @@
   <div class="filters-grid">
     <input type="text" placeholder="Marca" />
     <input type="text" placeholder="Modelo" />
-    <input type="number" placeholder="Año" />
+    <input type="number" placeholder="Año" min="1900" max="2100" />
 
     <select>
       <option class="inv_opt" value="" disabled selected hidden>Combustible</option>
@@ -19,8 +19,8 @@
       <option value="automatica">Automática</option>
     </select>
 
-    <input type="number" placeholder="Km mín" />
-    <input type="number" placeholder="Km máx" />
+    <input type="number" placeholder="Km mín" min="0" />
+    <input type="number" placeholder="Km máx" min="0" />
   </div>
 
   <button class="btn-filter">Buscar</button>

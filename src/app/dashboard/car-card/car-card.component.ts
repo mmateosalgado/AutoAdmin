@@ -6,7 +6,7 @@ import { CarsService } from '../../data/services/car.service';
   selector: 'app-car-card',
   imports: [CommonModule],
   templateUrl: './car-card.component.html',
-  styleUrl: './car-card.component.css',
+  styleUrl: './car-card.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CarCardComponent {
