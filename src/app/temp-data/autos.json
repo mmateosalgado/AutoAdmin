@@ -29,7 +29,7 @@
     },
     {
         "patent": "KAC 931",
-        "status":"reservado",
+        "status":"vendido",
         "make": "Chevrolet",
         "model": "Corsa",
         "year": 2015,
@@ -38,7 +38,7 @@
         "fuel": "Gas",
         "transmission": "Automática",
         "color": "gris",
-        "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi molestie ut turpis in iaculis. Curabitur varius turpis nec dolor malesuada, vitae commodo quam pulvinar. Cras bibendum interdum lobortis. Aenean ipsum sapien, euismod non cursus sit amet, sodales in nibh. Sed porta mauris ut ante maximus efficitur. Proin vulputate ex turpis.",
+        "description": "Auto vendido - ya no disponible",
         "image": "corsa.jpg",
         "publishStatus": [
             {
@@ -57,7 +57,7 @@
     },
     {
         "patent": "IKS 123",
-        "status":"disponible",
+        "status":"reservado",
         "make": "Chevrolet",
         "model": "Corsa",
         "year": 2015,

@@ -40,9 +40,12 @@
 
     @if(car.status !== "vendido"){
     <div class="actions">
-      <button (click)="EditCar()" class="btn-edit">✎ Editar</button>
-      <button (click)="SubirHistoriaCar()" class="btn-ig">Publicar historia Instagram</button>
-      <button (click)="DeleteCar()" class="btn-delete" title="Eliminar">🗑️</button>
+      <div class="btn-group">
+        <button (click)="EditCar()" class="btn-edit">✎ Editar</button>
+        <button (click)="SubirHistoriaCar()" class="btn-ig">Publicar historia Instagram</button>
+        <button (click)="DeleteCar()" class="btn-delete" title="Eliminar">🗑️</button>
+      </div>
+      <button class="btn-status">Cambiar estado</button>
     </div>
 
     <div class="publish-row">
