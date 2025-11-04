@@ -4,14 +4,15 @@ import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './auth/login/login.component';
 import { AuthGuard } from './auth/guard/auth.guard';
 import { ProfileComponent } from './auth/profile/profile.component';
+import { LandingComponent } from './landing/landing.component';
 
 
 export const routes: Routes = [
-  { path: '', redirectTo: '/login', pathMatch: 'full' },
+  { path: '', component: LandingComponent },
   { path: 'login', component: LoginComponent },
-  { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },
-  { path: 'profile',component:ProfileComponent,canActivate:[AuthGuard]},
-  { path: '**', redirectTo: '/login' }
+  { path: 'admin', component: HomeComponent, canActivate: [AuthGuard] },
+  { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },
+  { path: '**', redirectTo: '/' }
 ];
 
 @NgModule({

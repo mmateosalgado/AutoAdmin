@@ -1,0 +1,118 @@
+@use '../../styles/variables' as *;
+@use 'sass:color';
+
+.secondaryContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4rem;
+  padding: 2rem;
+  background-color: color.adjust($landing-primary-color, $lightness: 10%);
+  width: 100%;
+  min-height: 50dvh;
+  box-shadow: 2px 4px 100px rgba(171, 171, 171, 0.678);
+
+  .secondaryContentHeader {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    color: $landing-primary-text-color;
+    margin-bottom: 1rem;
+
+    .secondaryHeading {
+      color: $landing-primary-text-color;
+      font-size: clamp($font-size-xlarge, 4vw, $font-size-xxxlarge);
+      font-weight: $font-weight-bold;
+
+      .highlightText {
+        color: $landing-secondary-text-color;
+        font-weight: $font-weight-bold;
+      }
+    }
+
+    .secondaryDescription {
+      color: $landing-primary-text-color;
+      font-size: clamp($font-size-medium, 2vw, $font-size-large);
+      margin-top: 0.5rem;
+      max-width: 700px;
+    }
+  }
+
+  .secondaryContentBody {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 3rem;
+    width: 100%;
+    max-width: 1200px;
+
+    @media (max-width: 900px) {
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .imageContent {
+      width: clamp(300px, 100%, 600px);
+      max-width: 600px;
+      height: auto;
+      border-radius: 1rem;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .textContent {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 1rem;
+      color: $landing-primary-text-color;
+      font-size: $font-size-medium;
+      line-height: 1.6;
+      max-width: 600px;
+
+      .highlightTextLabel {
+        color: $landing-secondary-text-color;
+        font-weight: $font-weight-medium;
+        padding: .35rem;
+        border: 1px solid $landing-secondary-text-color;
+        border-radius: 1rem;
+        width: fit-content;
+      }
+
+      .tertiaryHeading {
+        font-size: clamp($font-size-large, 3vw, $font-size-xxlarge);
+        font-weight: $font-weight-medium;
+        margin-bottom: 0.5rem;
+        max-width: 400px;
+
+        .highlightText {
+          color: $landing-secondary-text-color;
+          font-weight: $font-weight-bold;
+        }
+      }
+
+      .description {
+        margin-top: 0.5rem;
+        color: $landing-primary-text-color;
+        font-size: clamp($font-size-normal, 2vw, $font-size-medium-large);
+        line-height: 1.6;
+      }
+    }
+
+    .featureList {
+      list-style-type: disc;
+      padding-left: 1.5rem;
+      color: $landing-primary-text-color;
+      margin-top: 1rem;
+
+      .featureItem {
+        margin-bottom: 0.5rem;
+        font-size: clamp($font-size-medium, 1.8vw, $font-size-medium-large);
+
+        &::marker {
+          color: $landing-secondary-text-color;
+        }
+      }
+    }
+  }
+}
