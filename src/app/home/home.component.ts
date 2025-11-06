@@ -6,7 +6,7 @@ import { CarListComponent } from '../dashboard/car-list/car-list.component';
 import { AddCarModalComponent } from '../modal/add-car-modal/add-car-modal.component';
 import { CommonModule } from '@angular/common';
 import { EditCarModalComponent } from '../modal/edit-car-modal/edit-car-modal.component';
-import { LogoutButtonComponent } from "../logout-button/logout-button.component";
+import { LogoutButtonComponent } from '../core/logout-button/logout-button.component';
 
 @Component({
   selector: 'app-home',

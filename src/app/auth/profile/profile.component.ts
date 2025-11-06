@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HeaderComponent } from "../../core/header/header.component";
-import { LogoutButtonComponent } from '../../logout-button/logout-button.component';
+import { LogoutButtonComponent } from "../../core/logout-button/logout-button.component";
 
 @Component({
   selector: 'app-profile',
