@@ -1,0 +1,49 @@
+@use '../../styles/variables' as *;
+
+.secondaryStatisticsContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  padding: 3rem 2rem;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+
+  .statisticItem {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 260px;
+    height: 120px;
+    padding: 1.5rem 2rem;
+    text-align: center;
+    background-color: rgba($secondary-color, 0.7);
+    border: 1px solid rgba($landing-primary-text-color, 0.1);
+    border-radius: 1.2rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+    transition: all 0.2s ease;
+
+    .statisticValue {
+      text-align: center;
+      width: 100%;
+      font-size: clamp($font-size-xlarge, 4vw, 48px);
+      font-weight: $font-weight-extra-bold;
+      color: $landing-secondary-text-color;
+      margin: 0;
+      line-height: 1;
+    }
+
+    .statisticLabel {
+      text-align: center;
+      width: 100%;
+      font-size: clamp($font-size-xsmall, 1.2vw, $font-size-normal);
+      color: $color-text-secondary;
+      margin: 0.5rem 0 0 0;
+      font-weight: $font-weight-regular;
+      line-height: 1.2;
+    }
+  }
+}

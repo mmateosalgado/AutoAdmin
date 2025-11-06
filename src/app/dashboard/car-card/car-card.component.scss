@@ -73,22 +73,25 @@
       padding: 6px 8px;
       font-size: $font-size-small;
       border: 1px solid rgba(15, 23, 42, 0.04);
-      color: #92400e;
+      font-weight: $font-weight-medium;
     }
 
     .disponible {
-      background: $secondary-color;
-      color: #065f46;
+      background: rgba(82, 196, 26, 0.1);
+      color: color.adjust($color-success, $lightness: -10%);
+      border: 1px solid rgba(82, 196, 26, 0.2);
     }
 
     .reservado {
-      background: $tertiary-color;
-      color: #92400e;
+      background: rgba(21, 93, 252, 0.1);
+      color: $color-button;
+      border: 1px solid rgba(21, 93, 252, 0.2);
     }
 
     .vendido {
-      background: $quaternary-color;
-      color: #b91c1c;
+      background: rgba(255, 77, 79, 0.1);
+      color: $color-error;
+      border: 1px solid rgba(255, 77, 79, 0.2);
     }
   }
 
@@ -144,49 +147,76 @@
   .actions {
     display: flex;
     align-items: center;
+    flex-direction: column;
     gap: .5rem;
+    width: 100%;
+    margin: .5rem 0;
 
-    .btn-edit {
-      flex: 1;
-      background: $secondary-color;
-      border: 1px solid rgba(15, 23, 42, 0.08);
-      border-radius: 1rem;
+    .btn-group {
+      display: flex;
+      align-items: center;
+      width: 100%;
+      gap: .5rem;
+
+      .btn-edit {
+        flex: 1;
+        background: $secondary-color;
+        border: 1px solid rgba(15, 23, 42, 0.08);
+        border-radius: 1rem;
+        padding: .5rem 1rem;
+        font-weight: $font-weight-bold;
+        cursor: pointer;
+        transition: all 0.3s ease-in-out;
+
+        &:hover {
+          background: color.scale($primary-color, $lightness: -5%);
+        }
+      }
+
+      .btn-ig {
+        border: 1px solid rgba(15, 23, 42, 0.08);
+        border-radius: 1rem;
+        padding: .5rem 1rem;
+        background: $secondary-color;
+        font-weight: $font-weight-bold;
+        cursor: pointer;
+        transition: all 0.3s ease-in-out;
+
+        &:hover {
+          background-color: rgba($instagram-color, 0.6);
+        }
+      }
+
+      .btn-delete {
+        width: 40px;
+        height: 40px;
+        border: 1px solid rgba(229, 62, 62, 0.1);
+        background: $secondary-color;
+        color: $color-error;
+        border-radius: .5rem;
+        padding: .5rem;
+        cursor: pointer;
+        transition: background-color 0.2s ease-in-out;
+
+        &:hover {
+          background-color: $color-error;
+        }
+      }
+    }
+
+    .btn-status {
+      width: 100%;
       padding: .5rem 1rem;
-      font-weight: $font-weight-bold;
+      border-radius: .5rem;
+      background: $secondary-color;
+      border: 1px solid rgba(15, 23, 42, 0.103);
       cursor: pointer;
+      font-weight: $font-weight-bold;
       transition: all 0.3s ease-in-out;
 
       &:hover {
-        background: color.scale($primary-color, $lightness: -5%);
+        background: $tertiary-color;
       }
-    }
-  }
-
-  .btn-ig {
-    border: 1px solid rgba(15, 23, 42, 0.08);
-    border-radius: 1rem;
-    padding: .5rem 1rem;
-    font-weight: $font-weight-bold;
-    cursor: pointer;
-    transition: all 0.3s ease-in-out;
-
-    &:hover {
-      background-color: rgba($instagram-color, 0.6);
-    }
-  }
-
-  .btn-delete {
-    width: 40px;
-    height: 40px;
-    border: 1px solid rgba(229, 62, 62, 0.1);
-    color: $color-error;
-    border-radius: .5rem;
-    padding: .5rem;
-    cursor: pointer;
-    transition: background-color 0.2s ease-in-out;
-
-    &:hover {
-      background-color: $color-error;
     }
   }
 
@@ -200,37 +230,36 @@
       flex: 1;
       padding: .5rem 1rem;
       border-radius: .5rem;
-      border: 1px solid rgba(15, 23, 42, 0.06);
-      border: none;
+      border: 1px solid rgba(15, 23, 42, 0.103);
       cursor: pointer;
       font-weight: $font-weight-bold;
-      transition: background-color 0.2s ease-in-out;
+      transition: all 0.3s ease-in-out;
     }
 
     .fb {
-      background: color.scale($market-place-color, $lightness: -5%);
-      color: $color-white;
+      background: $secondary-color;
 
       &:hover {
-        background: color.scale($market-place-color, $lightness: 30%);
+        background: $market-place-color;
+        color: $color-white;
       }
     }
 
     .ml {
-      background: color.scale($mercado-libre-color, $lightness: -5%);
-      color: $color-white;
+      background: $secondary-color;
 
       &:hover {
-        background: color.scale($mercado-libre-color, $lightness: 30%);
+        background: $mercado-libre-color;
+        color: $color-white;
       }
     }
 
     .web {
-      background: color.scale($web-color, $lightness: -5%);
-      color: $color-white;
+      background: $secondary-color;
 
       &:hover {
-        background: color.scale($web-color, $lightness: 30%);
+        background: $web-color;
+        color: $color-white;
       }
     }
   }

@@ -1,0 +1,86 @@
+@use '../../styles/variables' as *;
+@use 'sass:color';
+
+.primaryContent {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5rem;
+  padding: 4rem 2rem;
+  margin: 1rem auto;
+  max-width: 1200px;
+
+  @media (max-width: 900px) {
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .textContent {
+    display: flex;
+    flex-direction: column;
+    text-align: start;
+    gap: 1rem;
+    margin: 1rem;
+    width: 100%;
+    color: $landing-primary-text-color;
+
+    .highlightTextLabel {
+      color: $landing-secondary-text-color;
+      font-weight: $font-weight-medium;
+      padding: .35rem;
+      border: 1px solid $landing-secondary-text-color;
+      border-radius: 1rem;
+      width: fit-content;
+    }
+
+    .highlightText {
+      color: $landing-secondary-text-color;
+      font-weight: $font-weight-bold;
+    }
+
+    h1 {
+      font-size: clamp($font-size-xlarge, 5vw, $font-size-xxxlarge);
+    }
+
+    .description {
+      font-size: clamp($font-size-medium, 2.5vw, $font-size-large);
+      margin-top: 0;
+      text-align: start;
+      line-height: 1.5;
+    }
+  }
+
+  .statisticsContainer {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid rgba($landing-primary-text-color, 0.4);
+
+    .statisticItem {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      width: 150px;
+
+      .statisticValue {
+        font-size: clamp($font-size-large, 3vw, $font-size-xxlarge);
+        font-weight: $font-weight-bold;
+        color: $landing-secondary-text-color;
+      }
+
+      .statisticLabel {
+        font-size: clamp($font-size-xsmall, 1.5vw, $font-size-medium);
+        color: $landing-primary-text-color;
+      }
+    }
+  }
+
+  .landingImage {
+    width: clamp(300px, 40vw, 600px);
+    max-width: 600px;
+    height: auto;
+    margin: 1rem;
+    border-radius: 1rem;
+  }
+}
