@@ -1,5 +1,19 @@
 @use '../../styles/variables' as *;
 
+/* Overlay separado del modal */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(11, 14, 20, 0.5);
+  z-index: 129999;
+  animation: fadeIn 0.35s ease-out;
+  backdrop-filter: blur(2px);
+
+  &.closing {
+    animation: fadeOut 0.3s ease-in forwards;
+  }
+}
+
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -9,6 +23,16 @@
   to {
     opacity: 1;
     transform: scale(1);
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
   }
 }
 
@@ -27,14 +51,14 @@
 .modal {
   position: fixed;
   inset: 0;
-  background: rgba(11, 14, 20, 0.45);
+  background: transparent;
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 1rem;
   z-index: 130000;
-  animation: fadeInUp 0.35s ease-out;
   overflow-y: auto;
+  pointer-events: none;
 
   .closing {
     .modal-content {
@@ -56,6 +80,7 @@
     box-sizing: border-box;
     font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
     animation: fadeIn 0.35s ease-out;
+    pointer-events: auto;
 
     .modal-close {
       position: absolute;

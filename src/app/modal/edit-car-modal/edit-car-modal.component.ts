@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, inject, Input, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, inject, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { CarsService } from '../../data/services/car.service';
@@ -11,7 +11,7 @@ import { CarsService } from '../../data/services/car.service';
   styleUrls: ['./edit-car-modal.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class EditCarModalComponent {
+export class EditCarModalComponent implements OnInit, OnDestroy {
   @Input() car: Car | undefined;
   @Output() close = new EventEmitter<void>();
 
@@ -22,9 +22,17 @@ export class EditCarModalComponent {
   editedCar!: Car;
 
   ngOnInit(): void {
+    // Bloquear scroll del body
+    document.body.style.overflow = 'hidden';
+
     if (this.car) {
       this.editedCar = { ...this.car };
     }
+  }
+
+  ngOnDestroy(): void {
+    // Restaurar scroll del body
+    document.body.style.overflow = '';
   }
 
   onSave() {

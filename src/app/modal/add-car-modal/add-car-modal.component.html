@@ -1,3 +1,5 @@
+<div class="modal-overlay" [class.closing]="isClosing" (click)="onClose()"></div>
+
 <div class="add-sidebar" [class.closing]="isClosing">
   <div class="add-content">
     <button (click)="onClose()" class="sidebar-close" aria-label="Cerrar Agregar Auto">&times;</button>

@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CarsService } from '../../data/services/car.service';
 
@@ -9,7 +9,7 @@ import { CarsService } from '../../data/services/car.service';
   styleUrls: ['./add-car-modal.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AddCarModalComponent {
+export class AddCarModalComponent implements OnInit, OnDestroy {
   @Output() close = new EventEmitter<void>();
 
   addCarResp: boolean = true;
@@ -31,6 +31,16 @@ export class AddCarModalComponent {
       description: ['', Validators.required],
       images: ['']
     });
+  }
+
+  ngOnInit() {
+    // Bloquear scroll del body
+    document.body.style.overflow = 'hidden';
+  }
+
+  ngOnDestroy() {
+    // Restaurar scroll del body
+    document.body.style.overflow = '';
   }
 
   addCar() {
