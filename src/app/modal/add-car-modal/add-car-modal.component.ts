@@ -62,6 +62,7 @@ export class AddCarModalComponent implements OnInit, OnDestroy {
         alert("Auto agregado con éxito");
       } else {
         // Si cancela, deshacer la inserción
+        //TODO: Cuando se implemente el servicio de la api esta linea no es necesaria
         this.carService.deleteCar(this.car.patent);
         alert("Operación cancelada");
       }

@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, EventEmitter, inject, Input, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, inject, Input, output, Output } from '@angular/core';
 import { CarsService } from '../../data/services/car.service';
 
 @Component({
@@ -12,6 +12,7 @@ import { CarsService } from '../../data/services/car.service';
 export class CarCardComponent {
   @Input() car!: Car;
   @Output() editCar = new EventEmitter<Car>;
+  @Output() editStatusCar = new EventEmitter<Car>;
 
   carService: CarsService = inject(CarsService);
 
@@ -31,6 +32,11 @@ export class CarCardComponent {
 
   EditCar() {
     this.editCar.emit(this.car);
+  }
+
+  
+  EditStatusCar() {
+    this.editStatusCar.emit(this.car);
   }
 
   SubirHistoriaCar() {

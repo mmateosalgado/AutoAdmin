@@ -38,24 +38,29 @@
 
     <p class="desc">{{car.description}}</p>
 
-    @if(car.status !== "vendido"){
+
     <div class="actions">
+      @if(car.status !== "vendido"){
       <div class="btn-group">
         <button (click)="EditCar()" class="btn-edit">✎ Editar</button>
         <button (click)="SubirHistoriaCar()" class="btn-ig">Publicar historia Instagram</button>
         <button (click)="DeleteCar()" class="btn-delete" title="Eliminar">🗑️</button>
       </div>
-      <button class="btn-status">Cambiar estado</button>
+      }
+      <!-- TODO: Si bien esto se ve cuando cambiamos a vendido en un futuro no deberia -->
+      <button (click)="EditStatusCar()" class="btn-status">Cambiar estado</button>
     </div>
 
+    @if(car.status !== "vendido"){
     <div class="publish-row">
       @for (pub of car.publishStatus; track pub.platform) {
-        @if(pub.status === 'disabled') {
-        <button (click)="PublishOn(pub.platform)" class="btn-pub {{pub.platform.toLocaleLowerCase()}}">
-          Publicar en {{ pub.platform }}
-        </button>
-        }
+      @if(pub.status === 'disabled') {
+      <button (click)="PublishOn(pub.platform)" class="btn-pub {{pub.platform.toLocaleLowerCase()}}">
+        Publicar en {{ pub.platform }}
+      </button>
       }
-    </div>}
+      }
+    </div>
+    }
   </div>
 </article>

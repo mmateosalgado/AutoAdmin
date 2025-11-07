@@ -13,7 +13,8 @@ import { AsyncPipe } from '@angular/common';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CarListComponent {
-  @Output() outputCar = new EventEmitter<Car>();
+  @Output() outputCarEdit = new EventEmitter<Car>();
+  @Output() outputCarStatusEdit = new EventEmitter<Car>();
   @Output() close = new EventEmitter<void>();
   @Output() countList = new EventEmitter<number>();
 
@@ -24,6 +25,10 @@ export class CarListComponent {
   }
 
   EditCar(car: Car) {
-    this.outputCar.emit(car);
+    this.outputCarEdit.emit(car);
+  }
+
+  EditStatusCar(car: Car) {
+    this.outputCarStatusEdit.emit(car);
   }
 }

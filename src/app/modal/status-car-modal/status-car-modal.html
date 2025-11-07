@@ -1,0 +1,19 @@
+<div class="modal-backdrop" (click)="onClose()"></div>
+
+<div class="modal" [class.closing]="isClosing">
+  <h2>Cambiar estado del auto</h2>
+
+  <div class="form-group">
+    <label for="status">Estado:</label>
+    <select id="status" [(ngModel)]="selectedStatus">
+      @for (s of statuses; track $index) {
+        <option [value]="s">{{ s | titlecase }}</option>
+      }
+    </select>
+  </div>
+
+  <div class="buttons">
+    <button class="save" (click)="onSave()" [disabled]="!selectedStatus">Guardar</button>
+    <button class="cancel" (click)="onClose()">Cancelar</button>
+  </div>
+</div>

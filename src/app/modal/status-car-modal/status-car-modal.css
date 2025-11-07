@@ -1,0 +1,106 @@
+.modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(15, 15, 15, 0.6);
+  backdrop-filter: blur(2px);
+  z-index: 10;
+}
+
+.modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(1);
+  background: #ffffff;
+  padding: 1.8rem 1.5rem;
+  border-radius: 16px;
+  z-index: 11;
+  width: 340px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
+  transition: all 0.3s ease;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.modal.closing {
+  opacity: 0;
+  transform: translate(-50%, -50%) scale(0.95);
+}
+
+h2 {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  text-align: center;
+  color: #222;
+}
+
+.form-group {
+  margin-bottom: 1.3rem;
+  display: flex;
+  flex-direction: column;
+}
+
+label {
+  font-size: 0.9rem;
+  margin-bottom: 0.4rem;
+  color: #444;
+}
+
+select {
+  padding: 0.5rem 0.6rem;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 0.95rem;
+  background-color: #f9f9f9;
+  transition: all 0.2s;
+}
+
+select:focus {
+  border-color: #007bff;
+  outline: none;
+  background-color: #fff;
+}
+
+.buttons {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.8rem;
+}
+
+button {
+  flex: 1;
+  padding: 0.6rem 0;
+  font-size: 0.95rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.1s;
+}
+
+button:active {
+  transform: scale(0.97);
+}
+
+button.save {
+  background: #007bff;
+  color: #fff;
+  font-weight: 600;
+}
+
+button.save:disabled {
+  background: #9ec8ff;
+  cursor: not-allowed;
+}
+
+button.cancel {
+  background: #e0e0e0;
+  color: #333;
+  font-weight: 500;
+}
+
+button.cancel:hover {
+  background: #d5d5d5;
+}

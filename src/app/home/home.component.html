@@ -9,7 +9,8 @@
     <!-- <app-empty-state></app-empty-state> -->
 
     <!-- Si hay autos -->
-    <app-car-list (outputCar)="openEditCarModal($event)"></app-car-list>
+    <app-car-list (outputCarEdit)="openEditCarModal($event)"
+        (outputCarStatusEdit)="openStatusCarModal($event)"></app-car-list>
 </main>
 
 @if (showAddCarModal) {
@@ -19,6 +20,11 @@
 @if (showEditCarModal) {
 <app-edit-car-modal (close)="closeEditCarModal()" [car]="carToEdit">
 </app-edit-car-modal>
+}
+
+@if (showStatusCarModal) {
+<app-status-car-modal (close)="closeStatusCarModal()" [car]="carToEdit">
+</app-status-car-modal>
 }
 
 <app-logout-button></app-logout-button>
