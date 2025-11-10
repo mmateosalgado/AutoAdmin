@@ -115,4 +115,19 @@ export class CarsService {
       this.carsSubject.next([...this.cars]); // notifica cambios a todos los subscriptores
     }
   }
+
+  resetPublishStatus(patent: string): Car | null {
+    const index = this.cars.findIndex(c => c.patent === patent);
+    if (index !== -1) {
+      this.cars[index].publishStatus = [
+        { platform: 'ML', status: 'disabled' },
+        { platform: 'FB', status: 'disabled' },
+        { platform: 'WEB', status: 'disabled' }
+      ];  
+      localStorage.setItem('cars', JSON.stringify(this.cars));
+      this.carsSubject.next([...this.cars]);
+      return this.cars[index];
+    }
+    return null;
+  }
 }

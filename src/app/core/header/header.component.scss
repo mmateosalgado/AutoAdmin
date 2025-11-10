@@ -31,7 +31,7 @@
 
     .btn-add {
       color: $color-button;
-      border: none;
+      border: 1px solid rgba($color-button, 0.2);
       padding: .5rem 1rem;
       border-radius: 1rem;
       font-weight: $font-weight-bold;
@@ -49,7 +49,8 @@
     }
   }
 
-  .icon-car-circle, .profile-link {
+  .icon-car-circle,
+  .profile-link {
     a {
       display: flex;
       align-items: center;
@@ -63,6 +64,7 @@
       text-decoration: none;
       box-shadow: 0 4px 8px rgba($color-button, 0.2);
       transition: background 0.2s, transform 0.2s;
+      border: 1px solid rgba($color-button, 0.2);
 
       &:hover {
         background-color: rgba($color-hover-primary, 0.7);

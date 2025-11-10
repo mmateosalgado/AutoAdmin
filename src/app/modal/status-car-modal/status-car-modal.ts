@@ -31,33 +31,55 @@ export class StatusCarModal {
     document.body.style.overflow = '';
   }
 
-  onSave() {
+  async onSave(): Promise<void> {
     if (!this.car || !this.selectedStatus) return;
 
-    const updatedCar = {
-      ...this.car,
-      status: this.selectedStatus,
-    };
+    const updatedCar = { ...this.car, status: this.selectedStatus };
 
+    // Confirmación para autos vendidos
     if (this.selectedStatus === 'vendido') {
-      if (confirm(
-        "Al marcar este auto como vendido se marcara asi en todos los lugares que este publicado, " +
+      const confirmed = confirm(
+        "Al marcar este auto como vendido se marcará así en todos los lugares donde esté publicado. " +
         "ESTO NO SE PUEDE DESHACER. ¿Está seguro que desea continuar?"
-      )) {
-        alert("Cambio de estado guardado exitosamente.");
-        this.CarService.updateCar(updatedCar);
-      } else {
-        alert("Operación cancelada");
+      );
+
+      if (!confirmed) {
+        alert("Operación cancelada.");
+        this.startClose();
+        return;
       }
 
-      this.CarService.updateCar(updatedCar);
+      try {
+        // Reinicia estado de publicación y actualiza auto
+        const resetCar = await this.CarService.resetPublishStatus(updatedCar.patent);
+        if (!resetCar) throw new Error("No se pudo reiniciar el estado de publicación.");
+
+        resetCar.status = this.selectedStatus;
+        await this.CarService.updateCar(resetCar);
+
+        console.log("updatedStatusCar:", resetCar);
+        alert("Cambio de estado guardado exitosamente.");
+      } catch (error) {
+        console.error("Error al guardar estado:", error);
+        alert("Ocurrió un error al actualizar el estado del auto.");
+      }
+
       this.startClose();
-    } else {
-      this.CarService.updateCar(updatedCar);
-      alert("Cambio de estado guardado exitosamente.");
-      this.startClose();
+      return;
     }
+
+    // Caso general (no vendido)
+    try {
+      await this.CarService.updateCar(updatedCar);
+      alert("Cambio de estado guardado exitosamente.");
+    } catch (error) {
+      console.error("Error al guardar estado:", error);
+      alert("Ocurrió un error al actualizar el estado del auto.");
+    }
+
+    this.startClose();
   }
+
 
 
   onClose() {
