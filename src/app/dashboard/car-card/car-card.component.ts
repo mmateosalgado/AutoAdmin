@@ -18,14 +18,14 @@ export class CarCardComponent {
 
   PublishOn(platform: string) {
     if (confirm(`Esta seguro que desea publicar este auto en ${platform}?`)) {
-      this.carService.publishOn(this.car.patent, platform);
+      this.carService.publishOn(this.car.id, platform, "enabled");
       alert(`Auto publicado en ${platform} con exito`);
     }
   }
 
   DeleteCar() {
     if (confirm("Esta seguro que desea eliminar este auto?")) {
-      this.carService.deleteCar(this.car.patent);
+      this.carService.deleteCar(this.car.id);
       alert("Auto eliminado con exito");
     }
   }

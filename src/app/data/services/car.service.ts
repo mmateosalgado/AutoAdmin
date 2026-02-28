@@ -1,58 +1,30 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, tap } from 'rxjs';
 import { map } from 'rxjs/operators';
-import cars from "../../temp-data/autos.json";
+import { environment } from '../../../environments/environments';
+import { HttpClient } from '@angular/common/http';
+import { CreateCarDto } from '../dtos/create-car.dto';
+import { PublishCarDto } from '../dtos/publish-car.dto';
+import { EditCarPublishDto } from '../dtos/edit-car-publish.dto';
 
 @Injectable({ providedIn: 'root' })
 export class CarsService {
-  private cars: Car[] = [];
+
+  private apiUrl = `${environment.apiUrl}/car`;
   private carsSubject = new BehaviorSubject<Car[]>([]);
   cars$ = this.carsSubject.asObservable();
 
-  constructor() {
-    const storedCars = localStorage.getItem('cars');
-    if (storedCars) {
-      this.cars = JSON.parse(storedCars);
-    } else {
-      this.cars = [...cars];
-      localStorage.setItem('cars', JSON.stringify(this.cars));
-    }
+  constructor(private http: HttpClient) { }
 
-    this.carsSubject.next([...this.cars]);
-  }
-
+  // ==============================
+  // RETRIEVE DATA
+  // ==============================
   getCars(): Observable<Car[]> {
-    return this.cars$;
+    return this.http.get<Car[]>(this.apiUrl).pipe(
+      tap(cars => this.carsSubject.next(cars))
+    );
   }
 
-  addCar(newCar: Car): boolean {
-    const exists = this.cars.some(car => car.patent.toUpperCase() === newCar.patent);
-    if (exists) return false;
-
-    // Normalizamos patente a mayúsculas
-    newCar.patent = newCar.patent.toUpperCase();
-
-    newCar.publishStatus = [
-      { platform: 'ML', status: 'disabled' },
-      { platform: 'FB', status: 'disabled' },
-      { platform: 'WEB', status: 'disabled' }
-    ];
-
-    this.cars.push(newCar);
-    localStorage.setItem('cars', JSON.stringify(this.cars));
-    this.carsSubject.next([...this.cars]);
-
-    return true;
-  }
-
-
-  deleteCar(patent: string) {
-    this.cars = this.cars.filter(car => car.patent !== patent);
-    localStorage.setItem('cars', JSON.stringify(this.cars));
-    this.carsSubject.next([...this.cars]); // 🔑 esto dispara la actualización en tiempo real
-  }
-
-  // 🔑 ahora retorna observable que se recalcula con cada cambio
   countDataCars(): Observable<CountData> {
     return this.cars$.pipe(
       map(cars => {
@@ -62,72 +34,128 @@ export class CarsService {
         let totalWeb = 0;
 
         for (const car of cars) {
-
-          if (car.status !== "vendido") {
+          if (car.status !== 'vendido') {
             totalPrice += car.price;
 
-            if (car.publishStatus?.some(p => p.platform === 'ML' && p.status === 'enabled')) {
-              totalMeli++;
-            }
-            if (car.publishStatus?.some(p => p.platform === 'FB' && p.status === 'enabled')) {
-              totalFb++;
-            }
-
-            if (car.publishStatus?.some(p => p.platform === 'WEB' && p.status === 'enabled')) {
-              totalWeb++;
-            }
+            if (car.publishStatus?.some(p => p.platform === 'ML' && p.status === 'enabled')) totalMeli++;
+            if (car.publishStatus?.some(p => p.platform === 'FB' && p.status === 'enabled')) totalFb++;
+            if (car.publishStatus?.some(p => p.platform === 'WEB' && p.status === 'enabled')) totalWeb++;
           }
         }
 
-        const totalCars = cars.length;
-
-        return { totalPrice, totalMeli, totalFb, totalWeb, totalCars };
+        return {
+          totalPrice,
+          totalMeli,
+          totalFb,
+          totalWeb,
+          totalCars: cars.length
+        };
       })
     );
   }
 
-  publishOn(patent: string, platform: string) {
-    const carIndex = this.cars.findIndex(car => car.patent === patent);
-    if (carIndex !== -1) {
-      const car = this.cars[carIndex];
-      if (!car.publishStatus) {
-        car.publishStatus = [];
-      }
-      const fbStatus = car.publishStatus.find(p => p.platform === platform);
-      if (fbStatus) {
-        fbStatus.status = 'enabled';
-      } else {
-        car.publishStatus.push({ platform: platform, status: 'enabled' });
-      }
-      this.cars[carIndex] = car;
-      localStorage.setItem('cars', JSON.stringify(this.cars));
-      this.carsSubject.next([...this.cars]);
-    }
+  // ==============================
+  // ADD
+  // ==============================
+  addCar(dto: CreateCarDto): Observable<Car> {
+
+    const body: CreateCarDto = {
+      ...dto,
+      patent: dto.patent.toUpperCase()
+    };
+
+    return this.http.post<Car>(this.apiUrl, body).pipe(
+      tap(createdCar => {
+        const current = this.carsSubject.value;
+        this.carsSubject.next([...current, createdCar]);
+      })
+    );
   }
 
-  updateCar(updatedCar: Car): void {
-    const index = this.cars.findIndex(c => c.patent === updatedCar.patent);
-    console.log('Updating car:', updatedCar);
-    console.log('Found index:', index);
-    if (index !== -1) {
-      this.cars[index] = { ...updatedCar };  // sobreescribimos con lo nuevo
-      localStorage.setItem('cars', JSON.stringify(this.cars));
-      this.carsSubject.next([...this.cars]); // notifica cambios a todos los subscriptores
-    }
+
+  publishOn(carId: number, platform: string, status: 'enabled' | 'disabled'): Observable<Car> {
+
+    const body: PublishCarDto = {
+      carId,
+      platform,
+      status
+    };
+
+    return this.http.patch<Car>(`${this.apiUrl}/publish`, body).pipe(
+      tap(updatedCar => {
+        const updated = this.carsSubject.value.map(car =>
+          car.id === updatedCar.id ? updatedCar : car
+        );
+        this.carsSubject.next(updated);
+      })
+    );
   }
 
-  resetPublishStatus(patent: string): Car | null {
-    const index = this.cars.findIndex(c => c.patent === patent);
-    if (index !== -1) {
-      this.cars[index].publishStatus = [
-        { platform: 'ML', status: 'disabled' },
-        { platform: 'FB', status: 'disabled' },
-        { platform: 'WEB', status: 'disabled' }
-      ];  
-      localStorage.setItem('cars', JSON.stringify(this.cars));
-      this.carsSubject.next([...this.cars]);
-      return this.cars[index];
-    }
-    return null;
+  // ==============================
+  // DELETE
+  // ==============================
+  deleteCar(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/${id}`).pipe(
+      tap(() => {
+        const updated = this.carsSubject.value.filter(car => car.id !== id);
+        this.carsSubject.next(updated);
+      })
+    );
+  }
+
+  // ==============================
+  // EDIT's
+  // ==============================
+
+  updateCar(updatedCar: Car): Observable<Car> {
+    return this.http.put<Car>(
+      `${this.apiUrl}/${updatedCar.id}`,
+      updatedCar
+    ).pipe(
+      tap(carFromBackend => {
+        const updated = this.carsSubject.value.map(car =>
+          car.id === carFromBackend.id ? carFromBackend : car
+        );
+        this.carsSubject.next(updated);
+      })
+    );
+  }
+
+  editCarStatus(id: number, newStatus: 'Vendido' | 'Reservado' | 'Disponible'): Observable<Car> {
+    return this.http.put<Car>(
+      `${this.apiUrl}/status/${id}/${newStatus}`,
+      {}
+    ).pipe(
+      tap(updatedCar => {
+        const updated = this.carsSubject.value.map(car =>
+          car.id === updatedCar.id ? updatedCar : car
+        );
+        this.carsSubject.next(updated);
+      })
+    );
+  }
+
+  editCarPublish(
+    carId: number,
+    platform: string,
+    status: 'enabled' | 'disabled'
+  ): Observable<Car> {
+
+    const body: EditCarPublishDto = {
+      platform,
+      status
+    };
+
+    return this.http.put<Car>(
+      `${this.apiUrl}/publication/${carId}`,
+      body
+    ).pipe(
+      tap(updatedCar => {
+        const updated = this.carsSubject.value.map(car =>
+          car.id === updatedCar.id ? updatedCar : car
+        );
+        this.carsSubject.next(updated);
+      })
+    );
   }
 }

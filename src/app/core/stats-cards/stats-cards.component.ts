@@ -16,7 +16,7 @@ export class StatsCardsComponent {
 
   countData$: Observable<CountData> = this.carsService.countDataCars();
 
-  onDelete(patent: string) {
-    this.carsService.deleteCar(patent);
+  onDelete(id: number) {
+    this.carsService.deleteCar(id);
   }
 }

@@ -2,6 +2,7 @@ import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
 import { CarsService } from '../../data/services/car.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { CarStatus } from '../../data/interfaces/car-status.interface';
 
 @Component({
   selector: 'app-status-car-modal',
@@ -16,14 +17,15 @@ export class StatusCarModal {
   CarService: CarsService = inject(CarsService);
 
   isClosing = false;
-  selectedStatus: string = '';
-
-  statuses = ['disponible', 'reservado', 'vendido'];
+  selectedStatus: 'Disponible' | 'Reservado' | 'Vendido' | '' = '';
+  statuses: readonly ['Disponible', 'Reservado', 'Vendido'] = ['Disponible', 'Reservado', 'Vendido'];
 
   ngOnInit(): void {
     document.body.style.overflow = 'hidden';
     if (this.car) {
-      this.selectedStatus = this.car.status ?? '';
+      this.selectedStatus = ['Disponible', 'Reservado', 'Vendido'].includes(this.car.status)
+        ? this.car.status as 'Disponible' | 'Reservado' | 'Vendido'
+        : '';
     }
   }
 
@@ -32,12 +34,12 @@ export class StatusCarModal {
   }
 
   async onSave(): Promise<void> {
+
     if (!this.car || !this.selectedStatus) return;
 
-    const updatedCar = { ...this.car, status: this.selectedStatus };
+    // Confirmación si pasa a Vendido
+    if (this.selectedStatus === 'Vendido') {
 
-    // Confirmación para autos vendidos
-    if (this.selectedStatus === 'vendido') {
       const confirmed = confirm(
         "Al marcar este auto como vendido se marcará así en todos los lugares donde esté publicado. " +
         "ESTO NO SE PUEDE DESHACER. ¿Está seguro que desea continuar?"
@@ -48,39 +50,25 @@ export class StatusCarModal {
         this.startClose();
         return;
       }
-
-      try {
-        // Reinicia estado de publicación y actualiza auto
-        const resetCar = await this.CarService.resetPublishStatus(updatedCar.patent);
-        if (!resetCar) throw new Error("No se pudo reiniciar el estado de publicación.");
-
-        resetCar.status = this.selectedStatus;
-        await this.CarService.updateCar(resetCar);
-
-        console.log("updatedStatusCar:", resetCar);
-        alert("Cambio de estado guardado exitosamente.");
-      } catch (error) {
-        console.error("Error al guardar estado:", error);
-        alert("Ocurrió un error al actualizar el estado del auto.");
-      }
-
-      this.startClose();
-      return;
     }
 
-    // Caso general (no vendido)
     try {
-      await this.CarService.updateCar(updatedCar);
+
+      await this.CarService
+        .editCarStatus(this.car.id, this.selectedStatus)
+        .toPromise();
+
       alert("Cambio de estado guardado exitosamente.");
+
     } catch (error) {
+
       console.error("Error al guardar estado:", error);
       alert("Ocurrió un error al actualizar el estado del auto.");
+
     }
 
     this.startClose();
   }
-
-
 
   onClose() {
     this.startClose();
