@@ -25,7 +25,10 @@ export class CarCardComponent {
 
   DeleteCar() {
     if (confirm("Esta seguro que desea eliminar este auto?")) {
-      this.carService.deleteCar(this.car.id);
+      this.carService.deleteCar(this.car.id).subscribe({
+              next: () => console.log('Deleted successfully'),
+              error: (err) => console.error('Delete failed', err)
+      });
       alert("Auto eliminado con exito");
     }
   }
@@ -34,7 +37,7 @@ export class CarCardComponent {
     this.editCar.emit(this.car);
   }
 
-  
+
   EditStatusCar() {
     this.editStatusCar.emit(this.car);
   }

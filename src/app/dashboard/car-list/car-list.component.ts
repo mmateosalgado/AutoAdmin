@@ -7,7 +7,7 @@ import { AsyncPipe } from '@angular/common';
 
 @Component({
   selector: 'app-car-list',
-  imports: [CarCardComponent, EmptyStateComponent,AsyncPipe],
+  imports: [CarCardComponent, EmptyStateComponent, AsyncPipe],
   templateUrl: './car-list.component.html',
   styleUrl: './car-list.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -21,7 +21,8 @@ export class CarListComponent {
   cars$: Observable<Car[]>;
 
   constructor(private carService: CarsService) {
-    this.cars$ = this.carService.getCars();
+    this.carService.getCars().subscribe(); // dispara el HTTP y carga el subject
+    this.cars$ = this.carService.cars$;    // ahora escucha el subject
   }
 
   EditCar(car: Car) {

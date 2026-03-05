@@ -57,17 +57,15 @@ export class CarsService {
   // ==============================
   // ADD
   // ==============================
-  addCar(dto: CreateCarDto): Observable<Car> {
-
+  addCar(dto: CreateCarDto): Observable<any> {
     const body: CreateCarDto = {
       ...dto,
       patent: dto.patent.toUpperCase()
     };
 
-    return this.http.post<Car>(this.apiUrl, body).pipe(
-      tap(createdCar => {
-        const current = this.carsSubject.value;
-        this.carsSubject.next([...current, createdCar]);
+    return this.http.post(this.apiUrl, body).pipe(
+      tap(() => {
+        this.getCars().subscribe();
       })
     );
   }
@@ -95,9 +93,16 @@ export class CarsService {
   // DELETE
   // ==============================
   deleteCar(id: number): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/${id}`).pipe(
-      tap(() => {
-        const updated = this.carsSubject.value.filter(car => car.id !== id);
+
+    var url = `${this.apiUrl}/${id}`;
+
+    console.log("Deleting car with URL:", url); // Debug log
+
+    return this.http.delete<void>(url).pipe(
+      tap(response => {
+        console.log("Response from delete car:", response); // Debug log
+
+        const updated = [...this.carsSubject.value].filter(car => car.id !== id);
         this.carsSubject.next(updated);
       })
     );
@@ -121,7 +126,7 @@ export class CarsService {
     );
   }
 
-  editCarStatus(id: number, newStatus: 'Vendido' | 'Reservado' | 'Disponible'): Observable<Car> {
+  editCarStatus(id: number, newStatus: 'vendido' | 'reservado' | 'disponible'): Observable<Car> {
     return this.http.put<Car>(
       `${this.apiUrl}/status/${id}/${newStatus}`,
       {}

@@ -17,14 +17,14 @@ export class StatusCarModal {
   CarService: CarsService = inject(CarsService);
 
   isClosing = false;
-  selectedStatus: 'Disponible' | 'Reservado' | 'Vendido' | '' = '';
-  statuses: readonly ['Disponible', 'Reservado', 'Vendido'] = ['Disponible', 'Reservado', 'Vendido'];
+  selectedStatus: 'disponible' | 'reservado' | 'vendido' | '' = '';
+  statuses: readonly ['disponible', 'reservado', 'vendido'] = ['disponible', 'reservado', 'vendido'];
 
   ngOnInit(): void {
     document.body.style.overflow = 'hidden';
     if (this.car) {
-      this.selectedStatus = ['Disponible', 'Reservado', 'Vendido'].includes(this.car.status)
-        ? this.car.status as 'Disponible' | 'Reservado' | 'Vendido'
+      this.selectedStatus = ['disponible', 'reservado', 'vendido'].includes(this.car.status)
+        ? this.car.status as 'disponible' | 'reservado' | 'vendido'
         : '';
     }
   }
@@ -38,7 +38,7 @@ export class StatusCarModal {
     if (!this.car || !this.selectedStatus) return;
 
     // Confirmación si pasa a Vendido
-    if (this.selectedStatus === 'Vendido') {
+    if (this.selectedStatus === 'vendido') {
 
       const confirmed = confirm(
         "Al marcar este auto como vendido se marcará así en todos los lugares donde esté publicado. " +

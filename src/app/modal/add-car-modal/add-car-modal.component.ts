@@ -48,26 +48,26 @@ export class AddCarModalComponent implements OnInit, OnDestroy {
       this.car = this.carForm.value;
       this.car.status = 'disponible';
 
-      const added = this.carService.addCar(this.car);
-
-      if (!added) {
-        alert("Esta patente ya existe. Por favor, ingrese una patente diferente.");
-        return;
-      }
-
       if (confirm(
         "¿Está seguro que desea agregar este auto? " +
         "La patente no se puede modificar luego! (" + this.car.patent + ")"
       )) {
-        alert("Auto agregado con éxito");
+        this.carService.addCar(this.car).subscribe({
+          next: () => {
+            alert("Auto agregado con éxito");
+            this.startClose();
+          },
+          error: (err) => {
+            if (err.status === 409) {
+              alert("Esta patente ya existe. Por favor, ingrese una patente diferente.");
+            } else {
+              alert("Error al agregar el auto. Intente nuevamente.");
+            }
+          }
+        });
       } else {
-        // Si cancela, deshacer la inserción
-        //TODO: Cuando se implemente el servicio de la api esta linea no es necesaria
-        this.carService.deleteCar(this.car.patent);
         alert("Operación cancelada");
       }
-
-      this.startClose();
     }
   }
 
