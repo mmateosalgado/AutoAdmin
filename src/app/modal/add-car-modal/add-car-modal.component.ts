@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CarsService } from '../../data/services/car.service';
+import { finalize } from 'rxjs';
 
 @Component({
   selector: 'app-add-car-modal',
@@ -52,10 +53,11 @@ export class AddCarModalComponent implements OnInit, OnDestroy {
         "¿Está seguro que desea agregar este auto? " +
         "La patente no se puede modificar luego! (" + this.car.patent + ")"
       )) {
-        this.carService.addCar(this.car).subscribe({
+        this.carService.addCar(this.car).pipe(
+          finalize(() => this.startClose()) // ← se ejecuta siempre
+        ).subscribe({
           next: () => {
             alert("Auto agregado con éxito");
-            this.startClose();
           },
           error: (err) => {
             if (err.status === 409) {

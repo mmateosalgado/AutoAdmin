@@ -63,7 +63,7 @@ export class CarsService {
       patent: dto.patent.toUpperCase()
     };
 
-    return this.http.post(this.apiUrl, body).pipe(
+    return this.http.post(this.apiUrl, body, { responseType: 'text' }).pipe(
       tap(() => {
         this.getCars().subscribe();
       })
