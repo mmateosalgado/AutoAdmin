@@ -7,7 +7,7 @@
     <label for="status">Estado:</label>
     <select id="status" [(ngModel)]="selectedStatus">
       @for (s of statuses; track $index) {
-        <option [value]="s">{{ s | titlecase }}</option>
+        <option [value]="s">{{ s }}</option>
       }
     </select>
   </div>

@@ -52,20 +52,15 @@ export class StatusCarModal {
       }
     }
 
-    try {
-
-      await this.CarService
-        .editCarStatus(this.car.id, this.selectedStatus)
-        .toPromise();
-
-      alert("Cambio de estado guardado exitosamente.");
-
-    } catch (error) {
-
-      console.error("Error al guardar estado:", error);
-      alert("Ocurrió un error al actualizar el estado del auto.");
-
-    }
+    this.CarService.editCarStatus(this.car.id, this.selectedStatus).subscribe({
+      next: () => {
+        alert("Cambio de estado guardado exitosamente.");
+      },
+      error: (err) => {
+        console.error("Error al guardar estado:", err);
+        alert("Ocurrió un error al actualizar el estado del auto.");
+      }
+    });
 
     this.startClose();
   }

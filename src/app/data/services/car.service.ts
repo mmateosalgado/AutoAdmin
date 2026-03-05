@@ -126,16 +126,14 @@ export class CarsService {
     );
   }
 
-  editCarStatus(id: number, newStatus: 'vendido' | 'reservado' | 'disponible'): Observable<Car> {
-    return this.http.put<Car>(
+  editCarStatus(id: number, newStatus: 'vendido' | 'reservado' | 'disponible'): Observable<any> {
+    return this.http.put(
       `${this.apiUrl}/status/${id}/${newStatus}`,
-      {}
+      {},
+      { responseType: 'text' }
     ).pipe(
-      tap(updatedCar => {
-        const updated = this.carsSubject.value.map(car =>
-          car.id === updatedCar.id ? updatedCar : car
-        );
-        this.carsSubject.next(updated);
+      tap(() => {
+        this.getCars().subscribe();
       })
     );
   }
