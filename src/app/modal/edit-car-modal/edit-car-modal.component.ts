@@ -37,8 +37,22 @@ export class EditCarModalComponent implements OnInit, OnDestroy {
 
   onSave() {
     if (!this.editedCar) return;
-    this.CarService.updateCar(this.editedCar);
-    this.startClose();
+
+    if (JSON.stringify(this.editedCar) === JSON.stringify(this.car)) {
+      alert("No se han realizado cambios");
+      this.startClose();
+      return;
+    }
+
+    this.CarService.updateCar(this.editedCar).subscribe({
+      next: () => {
+        alert("Auto actualizado exitosamente.");
+        this.startClose();
+      },
+      error: () => {
+        alert("Ocurrió un error al actualizar el auto.");
+      }
+    });
   }
 
   onClose() {

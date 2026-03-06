@@ -18,8 +18,10 @@ export class CarCardComponent {
 
   PublishOn(platform: string) {
     if (confirm(`Esta seguro que desea publicar este auto en ${platform}?`)) {
-      this.carService.publishOn(this.car.id, platform, "enabled");
-      alert(`Auto publicado en ${platform} con exito`);
+      this.carService.publishOn(this.car.id, platform, "enabled").subscribe({
+        next: () => alert(`Auto publicado en ${platform} con exito`),
+        error: (err) => console.error('Publish failed', err)
+      });
     }
   }
 

@@ -71,20 +71,15 @@ export class CarsService {
   }
 
 
-  publishOn(carId: number, platform: string, status: 'enabled' | 'disabled'): Observable<Car> {
-
+  publishOn(carId: number, platform: string, status: 'enabled' | 'disabled'): Observable<any> {
     const body: PublishCarDto = {
-      carId,
-      platform,
-      status
+      status,
+      platform
     };
 
-    return this.http.patch<Car>(`${this.apiUrl}/publish`, body).pipe(
-      tap(updatedCar => {
-        const updated = this.carsSubject.value.map(car =>
-          car.id === updatedCar.id ? updatedCar : car
-        );
-        this.carsSubject.next(updated);
+    return this.http.put(`${this.apiUrl}/publication/${carId}`, body, { responseType: 'text' }).pipe(
+      tap(() => {
+        this.getCars().subscribe();
       })
     );
   }
@@ -112,16 +107,14 @@ export class CarsService {
   // EDIT's
   // ==============================
 
-  updateCar(updatedCar: Car): Observable<Car> {
-    return this.http.put<Car>(
+  updateCar(updatedCar: Car): Observable<any> {
+    return this.http.put(
       `${this.apiUrl}/${updatedCar.id}`,
-      updatedCar
+      updatedCar,
+      { responseType: 'text' }
     ).pipe(
-      tap(carFromBackend => {
-        const updated = this.carsSubject.value.map(car =>
-          car.id === carFromBackend.id ? carFromBackend : car
-        );
-        this.carsSubject.next(updated);
+      tap(() => {
+        this.getCars().subscribe();
       })
     );
   }
