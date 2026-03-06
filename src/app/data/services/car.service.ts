@@ -91,12 +91,8 @@ export class CarsService {
 
     var url = `${this.apiUrl}/${id}`;
 
-    console.log("Deleting car with URL:", url); // Debug log
-
     return this.http.delete<void>(url).pipe(
       tap(response => {
-        console.log("Response from delete car:", response); // Debug log
-
         const updated = [...this.carsSubject.value].filter(car => car.id !== id);
         this.carsSubject.next(updated);
       })

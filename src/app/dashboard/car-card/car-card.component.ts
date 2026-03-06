@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, EventEmitter, inject, Input, output, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, inject, Input, Output } from '@angular/core';
 import { CarsService } from '../../data/services/car.service';
 
 @Component({
@@ -28,8 +28,8 @@ export class CarCardComponent {
   DeleteCar() {
     if (confirm("Esta seguro que desea eliminar este auto?")) {
       this.carService.deleteCar(this.car.id).subscribe({
-              next: () => console.log('Deleted successfully'),
-              error: (err) => console.error('Delete failed', err)
+        next: () => alert('Auto eliminado con exito'),
+        error: (err) => console.error('Delete failed', err)
       });
       alert("Auto eliminado con exito");
     }

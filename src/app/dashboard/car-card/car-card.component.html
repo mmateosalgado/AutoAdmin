@@ -56,7 +56,7 @@
       @for (pub of car.publishStatus; track pub.platform) {
       @if(pub.status === 'disabled') {
       <button (click)="PublishOn(pub.platform)" class="btn-pub {{pub.platform.toLocaleLowerCase()}}">
-        Publicar en {{ pub.platform }}
+        Publicar en {{ pub.platform.toLocaleUpperCase() }}
       </button>
       }
       }

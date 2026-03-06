@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, Component, EventEmitter, inject, Input, OnDest
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { CarsService } from '../../data/services/car.service';
+import { forkJoin } from 'rxjs';
 
 @Component({
   selector: 'app-edit-car-modal',
@@ -21,14 +22,16 @@ export class EditCarModalComponent implements OnInit, OnDestroy {
   isClosing = false;
   editedCar!: Car;
 
-  ngOnInit(): void {
-    // Bloquear scroll del body
-    document.body.style.overflow = 'hidden';
+ngOnInit(): void {
+  document.body.style.overflow = 'hidden';
 
-    if (this.car) {
-      this.editedCar = { ...this.car };
-    }
+  if (this.car) {
+    this.editedCar = {
+      ...this.car,
+      publishStatus: this.car.publishStatus?.map(p => ({ ...p })) // ← copia profunda del array
+    };
   }
+}
 
   ngOnDestroy(): void {
     // Restaurar scroll del body
@@ -44,7 +47,20 @@ export class EditCarModalComponent implements OnInit, OnDestroy {
       return;
     }
 
-    this.CarService.updateCar(this.editedCar).subscribe({
+    // Detectar qué plataformas cambiaron y llamar publishOn por cada una
+    const changedPublishes = this.editedCar.publishStatus?.filter(editedPub => {
+      const original = this.car?.publishStatus?.find(p => p.platform === editedPub.platform);
+      return original?.status !== editedPub.status;
+    }) || [];
+
+    const publishCalls = changedPublishes.map(pub =>
+      this.CarService.publishOn(this.editedCar.id, pub.platform, pub.status as 'enabled' | 'disabled')
+    );
+
+    const updateCar$ = this.CarService.updateCar(this.editedCar);
+
+    // Ejecutar todo junto
+    forkJoin([...publishCalls, updateCar$]).subscribe({
       next: () => {
         alert("Auto actualizado exitosamente.");
         this.startClose();
