@@ -43,11 +43,4 @@ export class CarCardComponent {
   EditStatusCar() {
     this.editStatusCar.emit(this.car);
   }
-
-  SubirHistoriaCar() {
-    if (confirm("Esta seguro que desea publicar una historia en Instagram de este auto?")) {
-      //this.carService.subirHistoriaInstagram(this.car.patent);
-      alert("Historia publicada con exito");
-    }
-  }
 }

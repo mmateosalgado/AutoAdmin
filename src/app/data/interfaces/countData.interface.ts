@@ -2,6 +2,6 @@ interface CountData {
     totalPrice: number;
     totalMeli:number;
     totalFb:number;
-    totalWeb:number;
+    totalIg:number;
     totalCars: number;
 }

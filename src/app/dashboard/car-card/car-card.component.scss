@@ -56,8 +56,8 @@
         color: $mercado-libre-color;
       }
 
-      .web {
-        color: $web-color;
+      .ig {
+        color: $instagram-color;
       }
     }
   }
@@ -254,11 +254,11 @@
       }
     }
 
-    .web {
+    .ig {
       background: $secondary-color;
 
       &:hover {
-        background: $web-color;
+        background: $instagram-color;
         color: $color-white;
       }
     }

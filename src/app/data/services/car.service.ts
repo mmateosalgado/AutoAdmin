@@ -31,7 +31,7 @@ export class CarsService {
         let totalPrice = 0;
         let totalMeli = 0;
         let totalFb = 0;
-        let totalWeb = 0;
+        let totalIg = 0;
 
         for (const car of cars) {
           if (car.status !== 'vendido') {
@@ -39,7 +39,7 @@ export class CarsService {
 
             if (car.publishStatus?.some(p => p.platform === 'ML' && p.status === 'enabled')) totalMeli++;
             if (car.publishStatus?.some(p => p.platform === 'FB' && p.status === 'enabled')) totalFb++;
-            if (car.publishStatus?.some(p => p.platform === 'WEB' && p.status === 'enabled')) totalWeb++;
+            if (car.publishStatus?.some(p => p.platform === 'IG' && p.status === 'enabled')) totalIg++;
           }
         }
 
@@ -47,7 +47,7 @@ export class CarsService {
           totalPrice,
           totalMeli,
           totalFb,
-          totalWeb,
+          totalIg,
           totalCars: cars.length
         };
       })
