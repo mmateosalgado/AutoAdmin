@@ -57,13 +57,13 @@ export class CarsService {
   // ==============================
   // ADD
   // ==============================
-  addCar(dto: CreateCarDto): Observable<any> {
+  addCar(dto: CreateCarDto): Observable<{ id: number }> {
     const body: CreateCarDto = {
       ...dto,
       patent: dto.patent.toUpperCase()
     };
 
-    return this.http.post(this.apiUrl, body, { responseType: 'text' }).pipe(
+    return this.http.post<{ id: number }>(this.apiUrl, body).pipe(
       tap(() => {
         this.getCars().subscribe();
       })
@@ -84,6 +84,16 @@ export class CarsService {
     );
   }
 
+  addCarMedia(carId: number, media: {
+    url: string;
+    publicId: string;
+    resourceType: string;
+    format: string;
+    bytes: number;
+  }): Observable<any> {
+    return this.http.post(`${this.apiUrl}/${carId}/media`, media);
+  }
+
   // ==============================
   // DELETE
   // ==============================
@@ -97,6 +107,10 @@ export class CarsService {
         this.carsSubject.next(updated);
       })
     );
+  }
+
+  deleteCarMedia(carId: number, mediaId: number): Observable<any> {
+    return this.http.delete(`${this.apiUrl}/${carId}/media/${mediaId}`, { responseType: 'text' });
   }
 
   // ==============================
@@ -149,5 +163,9 @@ export class CarsService {
         this.carsSubject.next(updated);
       })
     );
+  }
+
+  reorderCarMedia(carId: number, order: { id: number; position: number }[]): Observable<any> {
+    return this.http.patch(`${this.apiUrl}/${carId}/media/reorder`, { order }, { responseType: 'text' });
   }
 }

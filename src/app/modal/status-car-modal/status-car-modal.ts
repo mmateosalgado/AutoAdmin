@@ -2,7 +2,6 @@ import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
 import { CarsService } from '../../data/services/car.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { CarStatus } from '../../data/interfaces/car-status.interface';
 
 @Component({
   selector: 'app-status-car-modal',

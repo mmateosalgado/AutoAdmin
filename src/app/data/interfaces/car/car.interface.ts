@@ -16,4 +16,13 @@ interface Car {
         platform: string;
         status: string;
     }[];
+    media?: {
+        id: number;
+        url: string;
+        publicId: string;
+        resourceType: string;
+        format: string;
+        bytes: number;
+        position: number;
+    }[];
 }

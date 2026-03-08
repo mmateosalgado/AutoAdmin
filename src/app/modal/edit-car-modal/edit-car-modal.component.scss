@@ -273,3 +273,127 @@
     }
   }
 }
+
+  // ── Media carrusel ────────────────────────────────────────────────────────────
+.media-section {
+  margin-bottom: 1rem;
+  border: 1px solid rgba($border-color, 0.12);
+  border-radius: 1rem;
+  padding: 0.75rem;
+  background: $primary-color;
+}
+
+.media-carousel {
+  display: flex;
+  gap: 0.75rem;
+  overflow-x: auto;
+  padding-bottom: 0.5rem;
+  align-items: center;
+  min-height: 90px;
+  scrollbar-width: thin;
+
+  &::-webkit-scrollbar { height: 4px; }
+  &::-webkit-scrollbar-thumb { background: rgba($border-color, 0.3); border-radius: 99px; }
+}
+
+.media-empty {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  height: 80px;
+  border: 2px dashed rgba($border-color, 0.2);
+  border-radius: 0.75rem;
+  cursor: pointer;
+  color: $color-text-secondary;
+  font-size: $font-size-xsmall;
+  transition: background 0.15s;
+
+  &:hover { background: rgba($border-color, 0.06); }
+}
+
+.media-thumb {
+  position: relative;
+  flex-shrink: 0;
+  width: 110px;
+  height: 90px;
+  border-radius: 0.75rem;
+  overflow: hidden;
+  cursor: grab;
+  border: 2px solid transparent;
+  transition: border-color 0.15s, transform 0.15s;
+
+  &:active { cursor: grabbing; }
+
+  &.drag-over {
+    border-color: $color-button;
+    transform: scale(1.03);
+  }
+
+  img, video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    pointer-events: none;
+  }
+
+  .thumb-remove {
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    background: rgba(0,0,0,0.6);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    font-size: 10px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &:hover { background: rgba(220, 38, 38, 0.85); }
+  }
+
+  .thumb-progress {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: rgba(255,255,255,0.3);
+
+    &__bar {
+      height: 100%;
+      background: $color-button;
+      transition: width 0.3s ease;
+    }
+  }
+}
+
+  .media-add {
+    flex-shrink: 0;
+    width: 60px;
+    height: 90px;
+    border: 2px dashed rgba($border-color, 0.3);
+    border-radius: 0.75rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 1.5rem;
+    color: $color-text-secondary;
+    transition: background 0.15s;
+
+    &:hover { background: rgba($border-color, 0.06); }
+  }
+
+.media-hint {
+  font-size: $font-size-xsmall;
+  color: $color-text-secondary;
+  margin: 6px 0 0;
+  text-align: center;
+}

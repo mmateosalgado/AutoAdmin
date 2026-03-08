@@ -66,20 +66,72 @@
         <textarea id="description" formControlName="description"></textarea>
       </div>
 
-      <div class="field images-upload">
-        <label>Imágenes</label>
-        <div class="upload-drop">
-          <button type="button" class="btn-upload">📤 Subir Imágenes</button>
-          <div class="upload-hint">Selecciona múltiples imágenes del auto</div>
+      <!-- ── Upload de media ── -->
+      <div class="field">
+        <label>Imágenes y Videos</label>
+
+        <div
+          class="upload-drop"
+          (dragover)="onDragOver($event)"
+          (drop)="onDrop($event)"
+          (click)="fileInput.click()"
+        >
+          <span class="upload-icon">📤</span>
+          <span class="upload-text">Arrastrá archivos o hacé click para seleccionar</span>
+          <span class="upload-hint">JPG, PNG, WEBP, GIF, MP4, WEBM</span>
         </div>
+
+        <input
+          #fileInput
+          type="file"
+          accept="image/jpeg,image/png,image/webp,image/gif,video/mp4,video/webm,video/ogg"
+          multiple
+          style="display:none"
+          (change)="onFilesSelected($event)"
+        />
+
+        <!-- Previews -->
+        @if(previews.length > 0){
+          <div class="previews-grid">
+            @for(preview of previews; track preview.previewUrl; let i = $index){
+              <div class="preview-item">
+
+                @if(preview.type === 'image'){
+                  <img [src]="preview.previewUrl" [alt]="preview.file.name" />
+                } @else {
+                  <video [src]="preview.previewUrl" muted></video>
+                }
+
+                <!-- Progreso -->
+                @if(preview.uploading){
+                  <div class="preview-progress">
+                    <div class="preview-progress__bar" [style.width.%]="preview.progress"></div>
+                  </div>
+                }
+
+                <!-- Error -->
+                @if(preview.error){
+                  <div class="preview-error">⚠️ {{ preview.error }}</div>
+                }
+
+                <!-- Botón eliminar (solo si no está subiendo) -->
+                @if(!preview.uploading){
+                  <button type="button" class="preview-remove" (click)="removeFile(i)">✕</button>
+                }
+
+              </div>
+            }
+          </div>
+        }
       </div>
 
       <div class="actions">
-        <button type="submit" [disabled]="!carForm.valid" class="btn-save">
-          Guardar Auto
+        <button type="submit" [disabled]="!carForm.valid || isSubmitting" class="btn-save">
+          {{ isSubmitting ? 'Guardando...' : 'Guardar Auto' }}
         </button>
         <button type="button" (click)="onClose()" class="btn-cancel">Cancelar</button>
       </div>
+
     </form>
   </div>
 </div>

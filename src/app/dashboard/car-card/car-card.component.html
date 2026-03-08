@@ -1,27 +1,36 @@
 <article class="car-card" role="article" aria-label="Tarjeta de auto">
   <div class="image-wrap">
-    @if(car.image) {
-    <img [src]="car.image" alt="Chevrolet Corsa" />
+    @if(car.media && car.media.length > 0) {
+      @if(car.media[0].resourceType === 'video') {
+        <video [src]="car.media[0].url" muted playsinline></video>
+      } @else {
+        <img [src]="car.media[0].url" alt="{{ car.make }} {{ car.model }}" />
+      }
+
+      @if(car.media.length > 1) {
+        <span class="media-count">+{{ car.media.length - 1 }} 📷</span>
+      }
+    } @else {
+      <img src="https://placehold.co/390x180?text=No+Image+Available" alt="No Image Available" />
     }
-    @else {
-    <img src="https://placehold.co/390x180?text=No+Image+Available" alt="No Image Available" />
-    }
+
     @if(car.status !== "vendido"){
-    <div class="badges">
-      @for (pub of car.publishStatus; track pub.platform) {
-      @if(pub.status === 'enabled') {
-      <span class="badge {{ pub.platform.toLowerCase() }}">
-        {{ pub.platform }}
-      </span>
-      }
-      }
-    </div>
+      <div class="badges">
+        @for (pub of car.publishStatus; track pub.platform) {
+          @if(pub.status === 'enabled') {
+            <span class="badge {{ pub.platform.toLowerCase() }}">{{ pub.platform }}</span>
+          }
+        }
+      </div>
     }
   </div>
 
   <div class="card-body">
     <div class="card-head">
-      <h4 class="car-title">{{car.make}} {{car.model}} <span class="status {{car.status.toLowerCase()}}">{{car.status}}</span></h4>
+      <h4 class="car-title">
+        {{car.make}} {{car.model}}
+        <span class="status {{car.status.toLowerCase()}}">{{car.status}}</span>
+      </h4>
       <div class="price">$ {{car.price}}</div>
     </div>
 
@@ -38,28 +47,26 @@
 
     <p class="desc">{{car.description}}</p>
 
-
     <div class="actions">
       @if(car.status !== "vendido"){
-      <div class="btn-group">
-        <button (click)="EditCar()" class="btn-edit">✎ Editar</button>
-        <button (click)="DeleteCar()" class="btn-delete" title="Eliminar">🗑️</button>
-      </div>
+        <div class="btn-group">
+          <button (click)="EditCar()" class="btn-edit">✎ Editar</button>
+          <button (click)="DeleteCar()" class="btn-delete" title="Eliminar">🗑️</button>
+        </div>
       }
-      <!-- TODO: Si bien esto se ve cuando cambiamos a vendido en un futuro no deberia -->
       <button (click)="EditStatusCar()" class="btn-status">Cambiar estado</button>
     </div>
 
     @if(car.status !== "vendido"){
-    <div class="publish-row">
-      @for (pub of car.publishStatus; track pub.platform) {
-      @if(pub.status === 'disabled') {
-      <button (click)="PublishOn(pub.platform)" class="btn-pub {{pub.platform.toLocaleLowerCase()}}">
-        Publicar en {{ pub.platform.toLocaleUpperCase() }}
-      </button>
-      }
-      }
-    </div>
+      <div class="publish-row">
+        @for (pub of car.publishStatus; track pub.platform) {
+          @if(pub.status === 'disabled') {
+            <button (click)="PublishOn(pub.platform)" class="btn-pub {{pub.platform.toLocaleLowerCase()}}">
+              Publicar en {{ pub.platform.toLocaleUpperCase() }}
+            </button>
+          }
+        }
+      </div>
     }
   </div>
 </article>

@@ -1,14 +1,74 @@
 <div class="modal-overlay" [class.closing]="isClosing" (click)="onClose()"></div>
 
-<div class="modal" [class.closing]="isClosing" role="dialog" aria-modal="true" aria-labelledby="editCarTitle">
+<div class="modal" [class.closing]="isClosing" role="dialog" aria-modal="true">
   <div class="modal-content" (click)="$event.stopPropagation()">
     <button (click)="onClose()" class="modal-close" aria-label="Cerrar modal">&times;</button>
 
-    <h2 id="editCarTitle">Editar Auto</h2>
+    <h2>Editar Auto</h2>
     <p class="modal-sub">Modifica los datos del auto</p>
 
+    <!-- ── Carrusel de media ── -->
+    <div class="media-section">
+      <div
+        class="media-carousel"
+        (dragover)="onDragOverZone($event)"
+        (drop)="onDropZone($event)"
+      >
+        @if(visibleMedia.length === 0) {
+          <div class="media-empty" (click)="fileInput.click()">
+            <span>📷 Sin imágenes — hacé click para agregar</span>
+          </div>
+        }
+
+        @for(item of visibleMedia; track item.url; let i = $index) {
+          <div
+            class="media-thumb"
+            [class.drag-over]="dragOverIndex === i"
+            draggable="true"
+            (dragstart)="onDragStart(i)"
+            (dragover)="onDragOver($event, i)"
+            (drop)="onDrop($event, i)"
+            (dragend)="onDragEnd()"
+          >
+            @if(item.resourceType === 'video') {
+              <video [src]="item.url" muted playsinline></video>
+            } @else {
+              <img [src]="item.url" [alt]="'media ' + i" />
+            }
+
+            <!-- Progreso de upload -->
+            @if(item.uploading) {
+              <div class="thumb-progress">
+                <div class="thumb-progress__bar" [style.width.%]="item.uploadProgress"></div>
+              </div>
+            }
+
+            <!-- Botón eliminar -->
+            @if(!item.uploading) {
+              <button type="button" class="thumb-remove" (click)="removeMedia(i)">✕</button>
+            }
+          </div>
+        }
+
+        <!-- Botón agregar -->
+        <div class="media-add" (click)="fileInput.click()" title="Agregar archivos">
+          <span>+</span>
+        </div>
+      </div>
+
+      <input
+        #fileInput
+        type="file"
+        accept="image/jpeg,image/png,image/webp,image/gif,video/mp4,video/webm,video/ogg"
+        multiple
+        style="display:none"
+        (change)="onFilesSelected($event)"
+      />
+
+      <p class="media-hint">Arrastrá para reordenar · ✕ para eliminar</p>
+    </div>
+
     <form class="car-form" (ngSubmit)="onSave()" novalidate>
-      <!-- fila 1: marca / modelo -->
       <div class="row">
         <div class="field">
           <label for="marca">Marca</label>
@@ -20,7 +80,6 @@
         </div>
       </div>
 
-      <!-- fila 2: año / precio / kilometraje -->
       <div class="row">
         <div class="field">
           <label for="anio">Año</label>
@@ -36,7 +95,6 @@
         </div>
       </div>
 
-      <!-- fila 3: combustible / transmision / color -->
       <div class="row">
         <div class="field">
           <label for="combustible">Combustible</label>
@@ -71,30 +129,30 @@
       <div class="field publish-status">
         <label>Estado de publicación</label>
         <div class="publish-list">
-          @if (editedCar.publishStatus && editedCar.publishStatus.length > 0) {
-          <div class="publish-grid">
-            @for (pub of editedCar.publishStatus; track pub.platform) {
-            <div class="publish-card" [class.disabled]="pub.status !== 'enabled'">
-              <div class="publish-info">
-                <span class="platform">{{ pub.platform }}</span>
-                <span class="status" [class.enabled]="pub.status === 'enabled'">
-                  {{ pub.status === 'enabled' ? 'Publicado' : 'No publicado' }}
-                </span>
-              </div>
-
-              @if (pub.status === 'enabled') {
-              <button (click)="pub.status = 'disabled'" type="button" class="btn-unpublish">
-                Quitar de {{ pub.platform }}
-              </button>
+          @if(editedCar.publishStatus && editedCar.publishStatus.length > 0) {
+            <div class="publish-grid">
+              @for(pub of editedCar.publishStatus; track pub.platform) {
+                <div class="publish-card" [class.disabled]="pub.status !== 'enabled'">
+                  <div class="publish-info">
+                    <span class="platform">{{ pub.platform }}</span>
+                    <span class="status" [class.enabled]="pub.status === 'enabled'">
+                      {{ pub.status === 'enabled' ? 'Publicado' : 'No publicado' }}
+                    </span>
+                  </div>
+                  @if(pub.status === 'enabled') {
+                    <button (click)="pub.status = 'disabled'" type="button" class="btn-unpublish">
+                      Quitar de {{ pub.platform }}
+                    </button>
+                  }
+                </div>
               }
             </div>
-            }
-          </div>
           } @else {
-          <p class="no-publish">No está publicado en ninguna plataforma.</p>
+            <p class="no-publish">No está publicado en ninguna plataforma.</p>
           }
         </div>
       </div>
+
       <div class="actions">
         <button type="submit" class="btn-save">Actualizar Auto</button>
         <button (click)="onClose()" type="button" class="btn-cancel">Cancelar</button>
