@@ -2,7 +2,7 @@ import {
   ChangeDetectionStrategy, ChangeDetectorRef, Component,
   EventEmitter, OnDestroy, OnInit, Output
 } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, ReactiveFormsModule, ValidationErrors, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { CarsService } from '../../data/services/car.service';
 import { CloudinaryService } from '../../data/services/cloudinary.service';
@@ -44,17 +44,25 @@ export class AddCarModalComponent implements OnInit, OnDestroy {
     private cdr: ChangeDetectorRef
   ) {
     this.carForm = this.fb.group({
-      make:         ['', Validators.required],
-      model:        ['', Validators.required],
-      fuel:         ['', Validators.required],
+      make: ['', Validators.required],
+      model: ['', Validators.required],
+      fuel: ['', Validators.required],
       transmission: ['', Validators.required],
-      year:         [2025, [Validators.required, Validators.min(1900)]],
-      price:        [0,    [Validators.required, Validators.min(1)]],
-      kilometers:   [0,    [Validators.required, Validators.min(0)]],
-      color:        ['', Validators.required],
-      patent:       ['', Validators.required],
-      description:  ['', Validators.required],
+      year: [2025, [Validators.required, Validators.min(1900)]],
+      price: [0, [Validators.required, Validators.min(1)]],
+      kilometers: [0, [Validators.required, Validators.min(0)]],
+      color: ['', Validators.required],
+      patent: ['', Validators.required, this.patentValidator.bind(this)],
+      description: ['', Validators.required],
     });
+  }
+
+  // --Validatores personalizados podrían ir aquí--
+
+  patentValidator(control: AbstractControl): ValidationErrors | null {
+    const value = control.value as string;
+    const isValid = /^(?:[A-Za-z]{3}[- ]?[0-9]{3}|[A-Za-z]{2}[- ]?[0-9]{3}[- ]?[A-Za-z]{2})$/.test(value);
+    return isValid ? null : { invalidName: true };
   }
 
   ngOnInit() {
@@ -137,7 +145,7 @@ export class AddCarModalComponent implements OnInit, OnDestroy {
 
   private addFiles(files: File[]): void {
     const allowed = ['image/jpeg', 'image/png', 'image/webp', 'image/gif',
-                     'video/mp4', 'video/webm', 'video/ogg'];
+      'video/mp4', 'video/webm', 'video/ogg'];
 
     for (const file of files) {
       if (!allowed.includes(file.type)) continue;
@@ -170,11 +178,11 @@ export class AddCarModalComponent implements OnInit, OnDestroy {
 
           if (response) {
             this.carService.addCarMedia(carId, {
-              url:          response.secure_url,
-              publicId:     response.public_id,
+              url: response.secure_url,
+              publicId: response.public_id,
               resourceType: response.resource_type,
-              format:       response.format,
-              bytes:        response.bytes,
+              format: response.format,
+              bytes: response.bytes,
             }).subscribe({
               next: () => {
                 preview.uploading = false;
@@ -182,8 +190,10 @@ export class AddCarModalComponent implements OnInit, OnDestroy {
                 this.cdr.markForCheck();
 
                 if (completed === total) {
-                  alert('Auto e imágenes agregados con éxito');
-                  this.startClose();
+                  this.carService.getCars().subscribe(() => {
+                    alert('Auto e imágenes agregados con éxito');
+                    this.startClose();
+                  });
                 }
               },
               error: () => {

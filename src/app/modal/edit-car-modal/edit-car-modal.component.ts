@@ -298,9 +298,11 @@ export class EditCarModalComponent implements OnInit, OnDestroy {
     }
 
     forkJoin(calls).subscribe({
-      next: () => {
-        alert('Auto actualizado exitosamente.');
-        this.startClose();
+      next: () => { 
+        this.carService.getCars().subscribe(() => {
+          alert('Auto actualizado exitosamente.');
+          this.startClose();
+        });
       },
       error: () => alert('Ocurrió un error al actualizar el auto.')
     });

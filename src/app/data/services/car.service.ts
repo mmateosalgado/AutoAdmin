@@ -21,7 +21,9 @@ export class CarsService {
   // ==============================
   getCars(): Observable<Car[]> {
     return this.http.get<Car[]>(this.apiUrl).pipe(
-      tap(cars => this.carsSubject.next(cars))
+      tap(cars => {
+        this.carsSubject.next(cars);
+      })
     );
   }
 
